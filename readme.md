@@ -204,3 +204,67 @@ public class User {
         <scope>compile</scope>
     </dependency>
 ```
+
+2. 添加xml在resource里
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    scan:当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+    scanPeriod:设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+    debug:当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+-->
+<configuration>
+
+    <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
+    <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+    <!-- 定义日志存储的路径，不要配置相对路径 -->
+<!--    <property name="FILE_PATH" value="E:/logs/demo.%d{yyyy-MM-dd}.%i.log" />-->
+
+    <!-- 控制台输出日志 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 按照上面配置的LOG_PATTERN来打印日志 -->
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--每天生成一个日志文件，保存15天的日志文件。rollingFile是用来切分文件的 -->
+<!--    <appender name="FILE"-->
+<!--              class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${FILE_PATH}</fileNamePattern>-->
+<!--            &lt;!&ndash; keep 15 days' worth of history &ndash;&gt;-->
+<!--            <maxHistory>15</maxHistory>-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                &lt;!&ndash; 日志文件的最大大小 &ndash;&gt;-->
+<!--                <maxFileSize>10MB</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--        </rollingPolicy>-->
+
+<!--        <encoder>-->
+<!--            <pattern>${LOG_PATTERN}</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+
+    <!-- project default level -->
+    <logger name="src" level="INFO" />
+
+    <!-- 日志输出级别 常用的日志级别按照从高到低依次为：ERROR、WARN、INFO、DEBUG。 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+<!--        <appender-ref ref="FILE" />-->
+    </root>
+</configuration>
+```
+3. 在application.yml里配置日志
+```yaml
+## 日志配置
+logging:
+  config: src/main/resources/logback.xml
+  # 数据库日志级别
+  level:
+    com.github.springbootmiaosha.dao: trace
+```
+
+4. 就可以启动使用了
