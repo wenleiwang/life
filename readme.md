@@ -268,3 +268,65 @@ logging:
 ```
 
 4. 就可以启动使用了
+
+# mybatis-plus的使用
+查看mybatis-plus官方网站
+## 构建数据表和数据库
+```sql
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL COMMENT '主键ID',
+  `name` varchar(30) DEFAULT NULL COMMENT '姓名',
+  `age` int(11) DEFAULT NULL COMMENT '年龄',
+  `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+```sql
+DELETE FROM user;
+
+INSERT INTO user (id, name, age, email) VALUES
+(1, 'Jone', 18, 'test1@poesy.com'),
+(2, 'Jack', 20, 'test2@poesy.com'),
+(3, 'Tom', 28, 'test3@poesy.com'),
+(4, 'Sandy', 21, 'test4@poesy.com'),
+(5, 'Billie', 24, 'test5@poesy.com');
+```
+## 引入依赖
+先添加mybatis-plus依赖
+```xml
+<dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-boot-starter</artifactId>
+    <version>3.1.0</version>
+</dependency>
+```
+添加数据库连接池
+添加数据库连接驱动
+```xml
+<!-- mysql数据库的驱动包 start -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.38</version>
+</dependency>
+```
+```xml
+<!-- druid -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>druid</artifactId>
+    <version>1.0.18</version>
+</dependency>
+```
+## 配置数据库
+```yaml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/poesy_life?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+```
+## 启动类上添加`@MapperScan("ink.poesy.life.dao")`注解
+## 
