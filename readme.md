@@ -192,3 +192,15 @@ public class User {
 所以只有logger.isDebugEnabled和logger.isInfoEnabled方法，
 而没有logger.isErrorEnabled方法。
 
+# 配置Slf4j
+## springboot使用Slf4j的方法
+1. 首先开启日志
+```xml
+    <!--        开启日志-->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-logging</artifactId>
+        <version>2.1.7.RELEASE</version>
+        <scope>compile</scope>
+    </dependency>
+```
