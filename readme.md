@@ -329,4 +329,12 @@ spring:
     password: root
 ```
 ## 启动类上添加`@MapperScan("ink.poesy.life.dao")`注解
-## 
+## 在dao层创建相应Mapper接口
+
+> @Param是地处Dao层，是为了传递多个参数，解决的是可读性和直观性；
+>而@RequestParam是位列Controller层，作用是为获取前端参数，解决的是前后端参数不一致的问题。所以它们没有关系！
+
+# 数据库join关联查询
+![active](src/image/join.png)
+
+# 分页查询返回数据
