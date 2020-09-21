@@ -27,7 +27,18 @@ public class User {
     @TableField(exist = false)
     private String password;
 
+    /**
+     * 年龄
+     */
+    @ApiModelProperty(value = "年龄",required = true)
     private Integer age;
 
+    /**
+     * 邮箱
+     */
+    @ApiModelProperty(value = "邮箱",required = true)
     private String email;
+
+    @ApiModelProperty(value = "是否是VIP")
+    private String isVip;
 }
