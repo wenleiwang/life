@@ -7,4 +7,5 @@ package ink.poesy.life.controller;
  * @Version 1.0
  **/
 public class GitNetworkTest {
+    //理论上远程分支
 }
