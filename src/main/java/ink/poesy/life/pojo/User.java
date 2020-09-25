@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor//有参构造
 @NoArgsConstructor//无参构造
 @ToString
 @Accessors(chain = true)
-public class User {
+public class User implements Serializable {
     private Long id;
     /**
      * 用户名
