@@ -15,6 +15,7 @@
     <description>WenWen's note and thinks</description>
     <modules>
         <module>life_blog</module>
+        <module>common</module>
     </modules>
 
 <!--    这里是添加modules后提示让添加上的。作用：意思是使用maven分模块管理，都会有一个父级项目-->
