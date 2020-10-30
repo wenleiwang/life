@@ -9,8 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @MapperScan("ink.poesy.life.dao")
 public class LifeApplication {
-//    private static final Logger logger = LoggerFactory.getLogger(LifeApplication.class);
-
     public static void main(String[] args) {
         log.info("项目启动了");
         SpringApplication.run(LifeApplication.class, args);

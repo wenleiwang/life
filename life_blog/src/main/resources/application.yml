@@ -1,0 +1,36 @@
+#连接数据库
+## 日志配置
+logging:
+  config: src/main/resources/logback.xml
+  level:
+    ink.poesy.life.dao: debug
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/poesy_life?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+
+    # Redis数据库索引
+  redis:
+    # redis数据库索引(默认为0)，我们使用索引为3的数据库，避免和其他数据库冲突
+    database: 3
+    # redis服务器地址（默认为loaclhost）
+    host: 39.108.141.221
+    # redis端口（默认为6379）
+    post: 6379
+    # redis访问密码（默认为空）
+    # password: pwd123
+    # redis连接超时时间（单位毫秒）
+    timeout: 0
+    # redis连接池配置
+    pool:
+      # 最大可用连接数（默认为8，负数表示无限）
+      max-active: 8
+      # 最大空闲连接数（默认为8，负数表示无限）
+      max-idle: 8
+      # 最小空闲连接数（默认为0，该值只有为正数才有用）
+      min-idle: 0
+      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+      max-wait: -1

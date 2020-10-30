@@ -1,5 +1,6 @@
 package ink.poesy.life;
 
+import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -44,6 +45,12 @@ public class StreamTest {
             //输出对应的键和值
             System.out.println(key + "=" + properties.getProperty(key));
         }
+
+    }
+
+    @Test
+    public void test3(){
+        System.out.println();
 
     }
 }
