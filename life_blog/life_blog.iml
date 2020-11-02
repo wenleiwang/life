@@ -68,6 +68,14 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.7.0" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-jdbc:2.3.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.3.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.2.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jdbc:2.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-relational:2.0.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.3.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.3.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.3.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.2" level="project" />

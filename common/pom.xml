@@ -35,6 +35,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		</dependency>
+
 	</dependencies>
 <!--common项目没有使用main方法的类（因为它不是应用程序）。因此，您必须告诉构建系统不要尝试为common项目构建可执行的jar
 	要告诉Maven不为Library项目构建可执行的jar,把build删除

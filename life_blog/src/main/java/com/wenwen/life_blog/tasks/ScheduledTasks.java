@@ -26,7 +26,7 @@ public class ScheduledTasks {
      * 还有其他选项，例如fixedDelay，它指定从任务完成开始测量的两次调用之间的间隔。
      * 还可以使用@Scheduled(cron=". . .")表达式进行更复杂的任务调度。
      */
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 60000)
     public void reportCurrentTime(){
         log.info("The time is now {}",dateFormat.format(new Date()));
     }
