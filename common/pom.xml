@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.wenwen</groupId>
 	<artifactId>common</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>common</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -36,14 +36,16 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+<!--common项目没有使用main方法的类（因为它不是应用程序）。因此，您必须告诉构建系统不要尝试为common项目构建可执行的jar
+	要告诉Maven不为Library项目构建可执行的jar,把build删除
+-->
+<!--	<build>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
 
 </project>
