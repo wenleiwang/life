@@ -31,7 +31,7 @@
 
 类详情
 ```java
-package ink.poesy.life.config;
+package com.wenwen.life_blog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
