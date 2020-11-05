@@ -1,7 +1,7 @@
 #连接数据库
 ## 日志配置
 logging:
-  config: src/main/resources/logback.xml
+  config: life_blog/src/main/resources/logback.xml
   level:
     ink.poesy.life.dao: debug
 spring:
@@ -41,4 +41,6 @@ spring:
 server:
   port: 2716
 storage:
-  location: com/wenwen/life_blog/uploadingfiles/data
+  location: D:/log/data
+hello:
+  msg: wenlei

@@ -85,25 +85,23 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public void init() {
-		try {
+
 //			ClassLoader.getSystemResourceAsStream()
-//			Files.createDirectory(rootLocation);
+		try {
+			Files.createDirectory(rootLocation);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 //			ClassPathResource classPathResource = new ClassPathResource("com/wenwen/life_blog/uploadingfiles/data" );
 //			classPathResource.createRelative("/data");
 
-			URL systemResource = ClassLoader.getSystemResource("");
-			System.out.println(systemResource.getPath());
+//			URL systemResource = ClassLoader.getSystemResource("");
+//			System.out.println(systemResource.getPath());
 //			URL systemResource2 = ClassLoader.getSystemResource("");
 //			System.out.println(systemResource2.getPath());
-			URL resource = FileSystemStorageService.class.getResource("/");
-			URL resource2 = FileSystemStorageService.class.getResource("");
-			System.out.println(resource.getPath());
-			System.out.println(resource2.getPath());
-
-
-
-		}catch (Exception e){
-			System.out.println(e);
-		}
+//			URL resource = FileSystemStorageService.class.getResource("/");
+//			URL resource2 = FileSystemStorageService.class.getResource("");
+//			System.out.println(resource.getPath());
+//			System.out.println(resource2.getPath());
 	}
 }
