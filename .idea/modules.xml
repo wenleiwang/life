@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/life.iml" filepath="$PROJECT_DIR$/life.iml" />
+      <module fileurl="file://$PROJECT_DIR$/life-blog/life-blog.iml" filepath="$PROJECT_DIR$/life-blog/life-blog.iml" />
       <module fileurl="file://$PROJECT_DIR$/life-generator/life-generator.iml" filepath="$PROJECT_DIR$/life-generator/life-generator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/life_blog/life_blog.iml" filepath="$PROJECT_DIR$/life_blog/life_blog.iml" />
     </modules>
   </component>
 </project>

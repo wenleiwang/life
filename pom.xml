@@ -14,7 +14,7 @@
     <name>life</name>
     <description>WenWen's note and thinks</description>
     <modules>
-        <module>life_blog</module>
+        <module>life-blog</module>
         <module>common</module>
         <module>life-generator</module>
     </modules>

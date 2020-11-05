@@ -44,22 +44,35 @@
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 		</dependency>
 
-	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-api</artifactId>
-		<version>${slf4j.version}</version>
-		<scope>compile</scope>
-	</dependency>
-	<dependency>
-		<groupId>ch.qos.logback</groupId>
-		<artifactId>logback-core</artifactId>
-		<version>${logback.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>ch.qos.logback</groupId>
-		<artifactId>logback-classic</artifactId>
-		<version>${logback.version}</version>
-	</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+		</dependency>
 
 	</dependencies>
 <!--common项目没有使用main方法的类（因为它不是应用程序）。因此，您必须告诉构建系统不要尝试为common项目构建可执行的jar
