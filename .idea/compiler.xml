@@ -9,11 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
         <module name="life_blog" />
+        <module name="life-generator" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.8" />
       <module name="life" target="1.8" />
+      <module name="life-generator" target="1.8" />
       <module name="life_blog" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -21,6 +23,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common" options="-parameters" />
       <module name="life" options="" />
+      <module name="life-generator" options="-parameters" />
       <module name="life_blog" options="-parameters" />
     </option>
   </component>
