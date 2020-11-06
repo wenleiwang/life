@@ -3,6 +3,8 @@ package com.wenwen.blog.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -39,12 +41,12 @@ public class Classify implements Serializable {
     /**
      * 添加时间
      */
-    private LocalDateTime addTime;
+    private Date addTime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 是否删除

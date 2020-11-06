@@ -1,30 +1,18 @@
-package com.wenwen.blog.entity;
-
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import java.util.Date;
+package com.wenwen.common.context;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *  博客用户类
  * </p>
  *
  * @author WenleiWang
  * @since 2020-11-06
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("blog_user")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "user_id", type = IdType.AUTO)
+public class UserInfo {
     private Integer userId;
 
     /**
@@ -62,12 +50,12 @@ public class User implements Serializable {
     /**
      * 插入数据时间
      */
-    private Date addTime;
+    private LocalDateTime addTime;
 
     /**
      * 修改数据时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      * 删除状态
@@ -78,5 +66,4 @@ public class User implements Serializable {
      * 用户头像
      */
     private String userImg;
-
 }

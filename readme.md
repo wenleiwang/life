@@ -124,13 +124,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Api(value = "用于用户相关的请求")
-@RequestMapping("/user")
+@RequestMapping("/userInfo")
 public class UserController {
 
     @ApiOperation(value = "展示用户信息",notes = "返回用户的信息")
     @PostMapping("/showUserInfo")
-    public String showUserInfo(@RequestBody User user){
-        return user.toString();
+    public String showUserInfo(@RequestBody User userInfo){
+        return userInfo.toString();
     }
 }
 ```
@@ -273,7 +273,7 @@ logging:
 查看mybatis-plus官方网站
 ## 构建数据表和数据库
 ```sql
-CREATE TABLE `user` (
+CREATE TABLE `userInfo` (
   `id` bigint(20) NOT NULL COMMENT '主键ID',
   `name` varchar(30) DEFAULT NULL COMMENT '姓名',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
@@ -282,9 +282,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 ```sql
-DELETE FROM user;
+DELETE FROM userInfo;
 
-INSERT INTO user (id, name, age, email) VALUES
+INSERT INTO userInfo (id, name, age, email) VALUES
 (1, 'Jone', 18, 'test1@poesy.com'),
 (2, 'Jack', 20, 'test2@poesy.com'),
 (3, 'Tom', 28, 'test3@poesy.com'),

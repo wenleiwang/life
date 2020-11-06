@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -49,11 +51,50 @@ public class Article implements Serializable {
      */
     private Integer userId;
 
-    private LocalDateTime addTime;
+    private Date addTime;
 
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     private Boolean deleted;
 
+    /**
+     * 点赞数量
+     */
+    private Integer starNum;
+
+    /**
+     * 评论数量
+     */
+    private Integer commentNum;
+
+    /**
+     * 收藏数量
+     */
+    private Integer collectNum;
+
+    /**
+     * 是否开启点赞
+     */
+    private Boolean starStatus;
+
+    /**
+     * 是否开启评论
+     */
+    private Boolean commentStatus;
+
+    /**
+     * 是否开启收藏
+     */
+    private Boolean collectStatus;
+
+    /**
+     * 首图
+     */
+    private String articleImgUrl;
+
+    /**
+     * 文章标志
+     */
+    private Integer articleFlag;
 
 }

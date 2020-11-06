@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 06/11/2020 10:23:15
+ Date: 06/11/2020 10:58:44
 */
 
 SET NAMES utf8mb4;
@@ -29,27 +29,16 @@ CREATE TABLE `blog_article`  (
   `user_id` int(11) NOT NULL COMMENT '文章所属用户',
   `add_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
-  `deteled` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT NULL,
-  PRIMARY KEY (`article_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for blog_article_interaction
--- ----------------------------
-DROP TABLE IF EXISTS `blog_article_interaction`;
-CREATE TABLE `blog_article_interaction`  (
-  `heat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '点赞',
-  `article_id` int(11) NOT NULL COMMENT '文章ID',
-  `star_num` int(11) UNSIGNED ZEROFILL NOT NULL COMMENT '点赞数量',
-  `comment_num` int(11) UNSIGNED ZEROFILL NOT NULL COMMENT '评论数量',
-  `collect_num` int(11) UNSIGNED ZEROFILL NOT NULL COMMENT '收藏数量',
-  `add_time` datetime(0) NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL,
   `deleted` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT NULL,
-  `star_status` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '是否开启点赞',
+  `star_num` int(11) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '点赞数量',
+  `comment_num` int(11) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '评论数量',
+  `collect_num` int(11) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '收藏数量',
+  `star_status` tinyint(1) NULL DEFAULT NULL COMMENT '是否开启点赞',
   `comment_status` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '是否开启评论',
-  `collect_status` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT NULL COMMENT '是否开启收藏',
-  PRIMARY KEY (`heat_id`) USING BTREE
+  `collect_status` tinyint(1) NULL DEFAULT NULL COMMENT '是否开启收藏',
+  `article_img_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '首图',
+  `artcle_flag` int(2) NULL DEFAULT NULL COMMENT '文章标志 0-原创；1-转载；2-翻译；',
+  PRIMARY KEY (`article_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

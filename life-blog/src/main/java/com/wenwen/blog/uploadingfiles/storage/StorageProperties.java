@@ -2,7 +2,7 @@ package com.wenwen.blog.uploadingfiles.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("storage")
+//@ConfigurationProperties("storage")
 public class StorageProperties {
 
 	/**

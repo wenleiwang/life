@@ -18,12 +18,12 @@ import java.util.stream.Stream;
 public class FileSystemStorageService implements StorageService {
 
 	/**地址*/
-	private final Path rootLocation;
-
-	@Autowired
-	public FileSystemStorageService(StorageProperties properties) {
-		this.rootLocation = Paths.get(properties.getLocation());
-	}
+	private final Path rootLocation = Paths.get("D:/log/data");
+//
+//	@Autowired
+//	public FileSystemStorageService(StorageProperties properties) {
+//		this.rootLocation = Paths.get(properties.getLocation());
+//	}
 
 	@Override
 	public void store(MultipartFile file) {
