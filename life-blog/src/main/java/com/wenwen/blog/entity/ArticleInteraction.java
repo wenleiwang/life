@@ -70,5 +70,8 @@ public class ArticleInteraction implements Serializable {
      */
     private Boolean collectStatus;
 
-
+    /**
+     * 首图
+     */
+    private String articleImgUrl;
 }
