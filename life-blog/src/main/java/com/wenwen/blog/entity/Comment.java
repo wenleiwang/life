@@ -18,41 +18,50 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("blog_article")
-public class Article implements Serializable {
+@TableName("blog_comment")
+public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 自增ID
+     * 评论ID
      */
-    @TableId(value = "article_id", type = IdType.AUTO)
-    private Integer articleId;
+    @TableId(value = "comment_id", type = IdType.AUTO)
+    private Integer commentId;
 
     /**
-     * 名称
+     * 评论内容
      */
-    private String articleName;
+    private String commentBody;
 
     /**
-     * 描述
+     * 父级评论ID，0-表示1级评论
      */
-    private String articleDescription;
+    private Integer commentParent;
 
     /**
-     * 内容
-     */
-    private String articleBody;
-
-    /**
-     * 文章所属用户
+     * 评论用户
      */
     private Integer userId;
 
+    /**
+     * 被评论文章
+     */
+    private Integer articleId;
+
+    /**
+     * 评论添加时间
+     */
     private LocalDateTime addTime;
 
+    /**
+     * 评论修改时间
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * 是否删除
+     */
     private Boolean deleted;
 
 

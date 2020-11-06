@@ -1,8 +1,6 @@
 package com.wenwen.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -18,41 +16,39 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("blog_article")
-public class Article implements Serializable {
+@TableName("blog_classify")
+public class Classify implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 自增ID
+     * 分类ID
      */
-    @TableId(value = "article_id", type = IdType.AUTO)
-    private Integer articleId;
+    private Integer classifyId;
 
     /**
-     * 名称
+     * 分类名
      */
-    private String articleName;
+    private String classifyName;
 
     /**
-     * 描述
-     */
-    private String articleDescription;
-
-    /**
-     * 内容
-     */
-    private String articleBody;
-
-    /**
-     * 文章所属用户
+     * 分类所属用户
      */
     private Integer userId;
 
+    /**
+     * 添加时间
+     */
     private LocalDateTime addTime;
 
+    /**
+     * 修改时间
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * 是否删除
+     */
     private Boolean deleted;
 
 

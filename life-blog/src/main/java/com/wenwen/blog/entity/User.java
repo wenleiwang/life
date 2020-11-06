@@ -1,12 +1,12 @@
 package com.wenwen.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -14,10 +14,11 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author WenleiWang
- * @since 2020-11-05
+ * @since 2020-11-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@TableName("blog_user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

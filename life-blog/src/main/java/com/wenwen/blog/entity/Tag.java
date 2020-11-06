@@ -18,41 +18,40 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("blog_article")
-public class Article implements Serializable {
+@TableName("blog_tag")
+public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 自增ID
+     * 标签ID
      */
-    @TableId(value = "article_id", type = IdType.AUTO)
-    private Integer articleId;
+    @TableId(value = "tag_id", type = IdType.AUTO)
+    private Integer tagId;
 
     /**
-     * 名称
+     * 标签名
      */
-    private String articleName;
+    private String tagName;
 
     /**
-     * 描述
-     */
-    private String articleDescription;
-
-    /**
-     * 内容
-     */
-    private String articleBody;
-
-    /**
-     * 文章所属用户
+     * 标签所属用户
      */
     private Integer userId;
 
+    /**
+     * 标签添加时间
+     */
     private LocalDateTime addTime;
 
+    /**
+     * 标签修改时间
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * 是否删除
+     */
     private Boolean deleted;
 
 
