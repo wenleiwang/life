@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wenwen.blog.mapper.ArticleMapper">
 
+    <select id="listSearchOfName" resultType="com.wenwen.blog.entity.Article">
+        select * from blog_article
+        <where>
+        <if test="userId != null">
+            user_id = #{userId}
+        </if>
+        <if test="search != null">
+            and article_name like #{search}
+        </if>
+        and deleted = 0
+        </where>
+        order by add_time
+        limit #{offset} , #{pageSize};
+    </select>
+
+    <select id="countForSearchOfName" resultType="java.lang.Integer">
+        select count(1) count from blog_article
+        <where>
+            <if test="userId != null">
+                user_id = #{userId}
+            </if>
+            <if test="search != null">
+                and article_name like #{search}
+            </if>
+            and deleted = 0
+        </where>
+    </select>
+
+    <update id="deleteOne">
+        update blog_article set deleted = 1 where article_id = #{articledId};
+    </update>
 </mapper>
