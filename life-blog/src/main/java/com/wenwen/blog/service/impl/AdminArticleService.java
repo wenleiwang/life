@@ -45,13 +45,13 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setUserId(userContext.getUserId());
         if(article.getArticleId() == null ){
             // 插入文章
-            int insert = articleMapper.insert(blog);
             blog.setAddTime(date);
             blog.setUpdateTime(date);
             blog.setCommentNum(0);
             blog.setCollectNum(0);
             blog.setStarNum(0);
             blog.setDeleted(false);
+            int insert = articleMapper.insert(blog);
             if(insert > 0){
                 return new ResponseBase().successful("插入文章成功！");
             }else{

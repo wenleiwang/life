@@ -54,7 +54,7 @@ public class Article implements Serializable {
     private Integer userId;
 
     //入参初始化，格式化成什么样入参就按格式传入,不能格式化入参，不然插入不了数据库了
-//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     //出参格式化，jackson序列化按照国际事件GMT，格式正确，但早了8个小时。添加timezone = "GMT+8"
     @JsonFormat(
             pattern = "yyyy-MM-dd HH:mm:ss",
@@ -63,7 +63,7 @@ public class Article implements Serializable {
     private Date addTime;
 
     //入参初始化，格式化成什么样入参就按格式传入,不能格式化入参，不然插入不了数据库了
-//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     //出参格式化，jackson序列化按照国际事件GMT，格式正确，但早了8个小时。添加timezone = "GMT+8"
     @JsonFormat(
             pattern = "yyyy-MM-dd HH:mm:ss",
