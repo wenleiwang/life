@@ -33,4 +33,8 @@
     <update id="deleteOne">
         update blog_article set deleted = 1 where article_id = #{articledId};
     </update>
+
+    <select id="listTop9ArticleName" resultType="java.lang.String">
+        select article_name from blog_article where deleted = 0 order by star_num desc limit 9;
+    </select>
 </mapper>

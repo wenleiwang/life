@@ -4,7 +4,6 @@ import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.service.impl.AdminArticleService;
 import com.wenwen.blog.util.response.ResponseBase;
-import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserContext;
 import com.wenwen.common.context.UserInfo;
@@ -12,7 +11,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
