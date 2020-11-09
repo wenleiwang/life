@@ -1,9 +1,14 @@
 package com.wenwen.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.ResArticleClassify;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.mapper.ArticleMapper;
+import com.wenwen.blog.mapper.ResArticleClassifyMapper;
 import com.wenwen.blog.service.IAdminArticleService;
+import com.wenwen.blog.service.IResArticleClassifyService;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserInfo;
@@ -22,6 +27,12 @@ import java.util.List;
 public class AdminArticleService implements IAdminArticleService {
     @Autowired
     ArticleMapper articleMapper;
+
+    @Autowired
+    ResArticleClassifyMapper resArticleClassifyMapper;
+
+    @Autowired
+    IResArticleClassifyService resArticleClassifyService;
 
     /**
      * 添加或更新文章，如果有id则更新文章，如果没有id则添加新建文章
@@ -94,6 +105,10 @@ public class AdminArticleService implements IAdminArticleService {
         ResponseBase response = new ResponseBase();
         if(articleMapper.selectById(articledId) != null){
             int flag = articleMapper.deleteOne(articledId);
+            //同时要删除它分类的关联关系，所有
+             QueryWrapper<ResArticleClassify> query = new QueryWrapper<>();
+            query.eq("article_id",articledId);
+            resArticleClassifyMapper.delete(query);
             if(flag > 0){
                 return response.successful("删除文章成功！");
             }else{
@@ -102,5 +117,12 @@ public class AdminArticleService implements IAdminArticleService {
         }else{
             return response.fail("此篇文章不存在！");
         }
+    }
+
+    @Override
+    public ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId) {
+        ResponseListBase<Article> response = new ResponseListBase<>();
+        //调用到别的服务层
+        return resArticleClassifyService.listArticleFromClassifyId(classifyId,userId);
     }
 }

@@ -37,4 +37,8 @@
     <select id="listTop9ArticleName" resultType="java.lang.String">
         select article_name from blog_article where deleted = 0 order by star_num desc limit 9;
     </select>
+
+    <select id="listArticleFromClassifyId" resultType="com.wenwen.blog.entity.Article">
+
+    </select>
 </mapper>

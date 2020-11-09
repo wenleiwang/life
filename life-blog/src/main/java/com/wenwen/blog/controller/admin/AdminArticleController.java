@@ -75,4 +75,12 @@ public class AdminArticleController {
         }
         return adminArticleService.deleteArticle(articledId);
     }
+
+    @ApiOperation(value = "通过分类ID查用户文章 @author 王文磊",notes = "通过分类ID查用户文章")
+    @ApiImplicitParam(name = "classifyId", required = true, paramType = "query", value = "分类ID")
+    @GetMapping("/listArticleFromClassifyId")
+    public ResponseListBase<Article> listArticleFromClassifyId(@RequestParam("classifyId")Integer classifyId){
+        UserInfo userInfo= UserContext.getUserContext();
+        return adminArticleService.listArticleFromClassifyId(classifyId,userInfo.getUserId());
+    }
 }
