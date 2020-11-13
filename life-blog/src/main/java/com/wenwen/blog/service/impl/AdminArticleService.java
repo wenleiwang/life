@@ -1,14 +1,13 @@
 package com.wenwen.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.ResArticleClassify;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.mapper.ArticleMapper;
+import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.mapper.ResArticleClassifyMapper;
 import com.wenwen.blog.service.IAdminArticleService;
-import com.wenwen.blog.service.IResArticleClassifyService;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserInfo;
@@ -16,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class AdminArticleService implements IAdminArticleService {
     ResArticleClassifyMapper resArticleClassifyMapper;
 
     @Autowired
-    IResArticleClassifyService resArticleClassifyService;
+    ClassifyMapper classifyMapper;
 
     /**
      * 添加或更新文章，如果有id则更新文章，如果没有id则添加新建文章
@@ -55,20 +55,75 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setCommentStatus(article.getCommentStatus());
         blog.setUserId(userContext.getUserId());
         if(article.getArticleId() == null ){
+            // 插入分类
+            if(article.getClassifyIdList() != null && article.getClassifyIdList().size() > 0){
+                Date now = new Date();
+                List<ResArticleClassify> resList = new ArrayList<>();
+                for(Integer item : article.getClassifyIdList()){
+                    ResArticleClassify res = new ResArticleClassify();
+                    res.setAddTime(now);
+                    res.setUpdateTime(now);
+                    res.setArticleId(article.getArticleId());
+                    res.setClassifyId(item);
+                    res.setDeleted(false);
+                    resList.add(res);
+                }
+                resArticleClassifyMapper.insertList(resList);
+            }
             // 插入文章
-            int insert = articleMapper.insert(blog);
             blog.setAddTime(date);
             blog.setUpdateTime(date);
             blog.setCommentNum(0);
             blog.setCollectNum(0);
             blog.setStarNum(0);
             blog.setDeleted(false);
+            int insert = articleMapper.insert(blog);
             if(insert > 0){
                 return new ResponseBase().successful("插入文章成功！");
             }else{
                 return new ResponseBase().fail("插入文章异常，操作数据库失败！");
             }
         }else{
+            //修改分类
+            List<Integer> newClassifyList = article.getClassifyIdList();
+            //得到现在的分类
+            List<Integer> oldClassifyList = resArticleClassifyMapper.listClassifyByArticleId(article.getArticleId());
+            List<Integer> deleteList = new ArrayList<>();
+            List<Integer> addList = new ArrayList<>();
+
+            if(oldClassifyList != null){
+                for(Integer item : newClassifyList){
+                    if(!oldClassifyList.contains(item)){
+                        //新分类不在这个用户的分类中
+                        addList.add(item);
+                    }
+                }
+                for(Integer item : oldClassifyList){
+                    if(!newClassifyList.contains(item)){
+                        deleteList.add(item);
+                    }
+                }
+            }
+            if(deleteList.size() > 0){
+                //删除，转换成(1,2,3)
+                resArticleClassifyMapper.delete(new QueryWrapper<ResArticleClassify>().in("classify_id",deleteList));
+            }
+            if(addList.size() > 0){
+                //批量新增，sql转换成(1,2,3)
+                List<ResArticleClassify> resList = new ArrayList<>();
+                Date now = new Date();
+                for(Integer item : addList){
+                    ResArticleClassify res = new ResArticleClassify();
+                    res.setAddTime(now);
+                    res.setUpdateTime(now);
+                    res.setArticleId(article.getArticleId());
+                    res.setClassifyId(item);
+                    res.setDeleted(false);
+                    resList.add(res);
+                }
+                resArticleClassifyMapper.insertList(resList);
+            }
+
             // 修改文章
             blog.setArticleId(article.getArticleId());
             blog.setUpdateTime(date);
@@ -117,12 +172,5 @@ public class AdminArticleService implements IAdminArticleService {
         }else{
             return response.fail("此篇文章不存在！");
         }
-    }
-
-    @Override
-    public ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId) {
-        ResponseListBase<Article> response = new ResponseListBase<>();
-        //调用到别的服务层
-        return resArticleClassifyService.listArticleFromClassifyId(classifyId,userId);
     }
 }

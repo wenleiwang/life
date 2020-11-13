@@ -9,6 +9,8 @@ import com.wenwen.blog.util.response.ResponseListBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -26,7 +28,9 @@ public class ResArticleClassifyServiceImpl extends ServiceImpl<ResArticleClassif
     public ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId) {
         ResponseListBase<Article> response = new ResponseListBase<>();
 
-        resArticleClassifyMapper.listArticleFromClassifyId( classifyId, userId);
+        List<Article> articles = resArticleClassifyMapper.listArticleFromClassifyId(classifyId, userId);
+        response.setData(articles);
+        response.successful("查询成功！");
         return response;
     }
 }

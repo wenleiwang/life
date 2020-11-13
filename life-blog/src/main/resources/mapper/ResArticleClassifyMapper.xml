@@ -7,4 +7,16 @@
         where
             a.user_id = #{userId} and res.classify_id = #{classifyId} and a.deleted = 0;
     </select>
+
+    <select id="listClassifyByArticleId" resultType="java.lang.Integer">
+        select classify_id from blog_res_article_classify where article_id = 1;
+    </select>
+
+    <insert id="insertList">
+        insert into blog_res_article_classify (`article_id`, `classify_id`, `deleted`, `add_time`, `update_time`)
+        values
+        <foreach collection="resList" item="item" separator=",">
+            (#{item.articleId},#{classifyId},#{deleted},#{addTime},#{updateTime})
+        </foreach>
+    </insert>
 </mapper>

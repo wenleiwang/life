@@ -7,6 +7,7 @@ import com.wenwen.blog.service.IIndexService;
 import com.wenwen.blog.util.response.ResponseListBase;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
  * @DATE: 2020/11/9
  **/
 @Service
+@Primary
 public class IndexServiceImpl implements IIndexService {
     @Autowired
     ArticleMapper articleMapper;

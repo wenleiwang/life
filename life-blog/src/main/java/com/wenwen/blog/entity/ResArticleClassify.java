@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -40,12 +41,12 @@ public class ResArticleClassify implements Serializable {
     /**
      * 添加数据时间
      */
-    private LocalDateTime addTime;
+    private Date addTime;
 
     /**
      * 修改数据时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 
 }

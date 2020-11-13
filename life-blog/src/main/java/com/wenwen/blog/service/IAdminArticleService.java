@@ -32,11 +32,4 @@ public interface IAdminArticleService {
      */
     ResponseBase deleteArticle(Integer articledId);
 
-    /**
-     * 根据分类得到该用户的博客列表
-     * @param classifyId 分类ID
-     * @param userInfo 用户ID
-     * @return
-     */
-    ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userInfo);
 }

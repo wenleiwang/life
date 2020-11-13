@@ -24,4 +24,19 @@ public interface ClassifyMapper extends BaseMapper<Classify> {
      * @return
      */
     List<String> listClassifyByUserId(@Param("userId") Integer userId);
+
+    /**
+     * 删除传入类中没有的类
+     * @param inClassify 传入类
+     * @param userId 用户
+     * @return 删除状态
+     */
+    int deleteOverClassify(String inClassify, Integer userId);
+
+    /**
+     * 通过文章ID得到这个文章对应的分类ID列表
+     * @param articleId 文章ID
+     * @return 文章对应的分类ID列表
+     */
+    List<Integer> listClassifyByArticleId(Integer articleId);
 }

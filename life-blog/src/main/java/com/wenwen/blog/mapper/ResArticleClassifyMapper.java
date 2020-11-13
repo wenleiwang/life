@@ -25,4 +25,7 @@ public interface ResArticleClassifyMapper extends BaseMapper<ResArticleClassify>
      */
     List<Article> listArticleFromClassifyId(@RequestParam("classifyId") Integer classifyId,@RequestParam("userId") Integer userId);
 
+    List<Integer> listClassifyByArticleId(Integer articleId);
+
+    Integer insertList(List<ResArticleClassify> resList);
 }
