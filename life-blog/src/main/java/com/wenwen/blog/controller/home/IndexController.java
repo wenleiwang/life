@@ -26,7 +26,7 @@ public class IndexController {
     IIndexService indexService;
 
     @GetMapping("/user")
-    public String test(){
+    public String user(){
         final User user = userMapper.selectById(1);
         return "";
     }
@@ -54,5 +54,10 @@ public class IndexController {
     @GetMapping("/listClassify")
     public ResponseListBase<String> listClassify(@RequestParam("userId") Integer userId){
         return indexService.listClassify(userId);
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "{\"name\":\"测试前端请求！\"}";
     }
 }
