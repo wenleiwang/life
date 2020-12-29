@@ -46,6 +46,13 @@ public class AdminArticleService implements IAdminArticleService {
         Date date = new Date();
         blog.setArticleName(article.getArticleName());
         blog.setArticleBody(article.getArticleBody());
+        if(StringUtils.isBlank(article.getArticleDescription())){
+            if(article.getArticleBody().length() <= 100){
+                article.setArticleDescription(article.getArticleBody());
+            }else{
+                article.setArticleDescription(article.getArticleBody().substring(100));
+            }
+        }
         blog.setArticleDescription(article.getArticleDescription());
         blog.setArticleFlag(article.getArticleFlag());
         blog.setArticleImgUrl(article.getArticleImgUrl());
@@ -55,6 +62,14 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setCommentStatus(article.getCommentStatus());
         blog.setUserId(userContext.getUserId());
         if(article.getArticleId() == null ){
+            // 插入文章
+            blog.setAddTime(date);
+            blog.setUpdateTime(date);
+            blog.setCommentNum(0);
+            blog.setCollectNum(0);
+            blog.setStarNum(0);
+            blog.setDeleted(false);
+            int insert = articleMapper.addArticle(blog);
             // 插入分类
             if(article.getClassifyIdList() != null && article.getClassifyIdList().size() > 0){
                 Date now = new Date();
@@ -63,27 +78,21 @@ public class AdminArticleService implements IAdminArticleService {
                     ResArticleClassify res = new ResArticleClassify();
                     res.setAddTime(now);
                     res.setUpdateTime(now);
-                    res.setArticleId(article.getArticleId());
+                    res.setArticleId(insert);
                     res.setClassifyId(item);
                     res.setDeleted(false);
                     resList.add(res);
                 }
                 resArticleClassifyMapper.insertList(resList);
             }
-            // 插入文章
-            blog.setAddTime(date);
-            blog.setUpdateTime(date);
-            blog.setCommentNum(0);
-            blog.setCollectNum(0);
-            blog.setStarNum(0);
-            blog.setDeleted(false);
-            int insert = articleMapper.insert(blog);
+
             if(insert > 0){
                 return new ResponseBase().successful("插入文章成功！");
             }else{
                 return new ResponseBase().fail("插入文章异常，操作数据库失败！");
             }
         }else{
+            // TODO 判断是否存在
             //修改分类
             List<Integer> newClassifyList = article.getClassifyIdList();
             //得到现在的分类

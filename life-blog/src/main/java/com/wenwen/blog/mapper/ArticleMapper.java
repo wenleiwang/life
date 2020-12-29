@@ -34,4 +34,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return 热门文章标题
      */
     List<String> listTop9ArticleName();
+
+    /**
+     * 添加一条文章数据，返回主键ID
+     * @param blog 文章数据
+     * @return 主键ID
+     */
+    int addArticle(Article blog);
 }
