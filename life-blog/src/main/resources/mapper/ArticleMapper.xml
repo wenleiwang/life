@@ -20,13 +20,13 @@
         `article_flag`
     </sql>
 <!--    添加文章数据-->
-    <insert id="addArticle">
+    <insert id="addArticle" useGeneratedKeys="true" keyProperty="articleId">
         INSERT INTO `poesy_life`.`blog_article` (
             <include refid="allArticle"></include>
         )
         VALUES
             (
-                #{articleName}
+                #{articleName},
                 #{articleDescription},
                 #{articleBody},
                 #{userId},
@@ -42,7 +42,6 @@
                 #{articleImgUrl},
                 #{articleFlag}
             );
-
     </insert>
 
     <select id="listSearchOfName" resultType="com.wenwen.blog.entity.Article">

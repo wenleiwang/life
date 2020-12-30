@@ -55,7 +55,12 @@ public class AdminArticleService implements IAdminArticleService {
         }
         blog.setArticleDescription(article.getArticleDescription());
         blog.setArticleFlag(article.getArticleFlag());
-        blog.setArticleImgUrl(article.getArticleImgUrl());
+        if(StringUtils.isNotBlank(article.getArticleImgUrl())){
+            blog.setArticleImgUrl(article.getArticleImgUrl());
+        }else{
+            blog.setArticleImgUrl("article.getArticleImgUrl()");
+        }
+
         blog.setCollectNum(article.getArticleFlag());
         blog.setStarStatus(article.getStarStatus());
         blog.setCollectStatus(article.getCollectStatus());
@@ -78,7 +83,7 @@ public class AdminArticleService implements IAdminArticleService {
                     ResArticleClassify res = new ResArticleClassify();
                     res.setAddTime(now);
                     res.setUpdateTime(now);
-                    res.setArticleId(insert);
+                    res.setArticleId(blog.getArticleId());
                     res.setClassifyId(item);
                     res.setDeleted(false);
                     resList.add(res);
