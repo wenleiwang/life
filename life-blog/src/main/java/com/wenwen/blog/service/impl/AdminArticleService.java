@@ -48,12 +48,11 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setArticleBody(article.getArticleBody());
         if(StringUtils.isBlank(article.getArticleDescription())){
             if(article.getArticleBody().length() <= 100){
-                article.setArticleDescription(article.getArticleBody());
+                blog.setArticleDescription(article.getArticleBody());
             }else{
-                article.setArticleDescription(article.getArticleBody().substring(100));
+                blog.setArticleDescription(article.getArticleBody().substring(0,100));
             }
         }
-        blog.setArticleDescription(article.getArticleDescription());
         blog.setArticleFlag(article.getArticleFlag());
         if(StringUtils.isNotBlank(article.getArticleImgUrl())){
             blog.setArticleImgUrl(article.getArticleImgUrl());
