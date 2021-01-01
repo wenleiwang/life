@@ -2,6 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wenwen.blog.mapper.ArticleMapper">
 
+    <sql id="allArticle">
+        `article_name`,
+        `article_description`,
+        `article_body`,
+        `user_id`,
+        `add_time`,
+        `update_time`,
+        `deleted`,
+        `star_num`,
+        `comment_num`,
+        `collect_num`,
+        `star_status`,
+        `comment_status`,
+        `collect_status`,
+        `article_img_url`,
+        `article_flag`
+    </sql>
+<!--    添加文章数据-->
+    <insert id="addArticle" useGeneratedKeys="true" keyProperty="articleId">
+        INSERT INTO `poesy_life`.`blog_article` (
+            <include refid="allArticle"></include>
+        )
+        VALUES
+            (
+                #{articleName},
+                #{articleDescription},
+                #{articleBody},
+                #{userId},
+                #{addTime},
+                #{updateTime},
+                #{deleted},
+                #{starNum},
+                #{commentNum},
+                #{collectNum},
+                #{starStatus},
+                #{commentStatus},
+                #{collectStatus},
+                #{articleImgUrl},
+                #{articleFlag}
+            );
+    </insert>
+
     <select id="listSearchOfName" resultType="com.wenwen.blog.entity.Article">
         select * from blog_article
         <where>
@@ -33,4 +75,12 @@
     <update id="deleteOne">
         update blog_article set deleted = 1 where article_id = #{articledId};
     </update>
+
+    <select id="listTop9ArticleName" resultType="java.lang.String">
+        select article_name from blog_article where deleted = 0 order by star_num desc limit 9;
+    </select>
+
+    <select id="listArticleFromClassifyId" resultType="com.wenwen.blog.entity.Article">
+
+    </select>
 </mapper>

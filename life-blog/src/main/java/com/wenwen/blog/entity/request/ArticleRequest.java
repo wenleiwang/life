@@ -3,6 +3,8 @@ package com.wenwen.blog.entity.request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author WangWenLei
  * @DATE: 2020/11/6
@@ -64,4 +66,6 @@ public class ArticleRequest {
     @ApiModelProperty(value = "文章标志")
     private Integer articleFlag;
 
+    @ApiModelProperty(value = "文章分类ID列表")
+    private List<Integer> classifyIdList;
 }

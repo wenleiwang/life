@@ -19,22 +19,20 @@ public class FileSystemStorageService implements StorageService {
 
 	/**地址*/
 	private final Path rootLocation = Paths.get("D:/log/data");
-//
-//	@Autowired
-//	public FileSystemStorageService(StorageProperties properties) {
-//		this.rootLocation = Paths.get(properties.getLocation());
-//	}
 
 	@Override
-	public void store(MultipartFile file) {
+	public String store(MultipartFile file) {
+		Path road = null;
 		try {
 			if (file.isEmpty()) {
 				throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
 			}
-			Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+			road = this.rootLocation.resolve(file.getOriginalFilename());
+			Files.copy(file.getInputStream(), road);
 		} catch (IOException e) {
 			throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
 		}
+		return road.toString().replaceAll("\\\\","/");
 	}
 
 	@Override

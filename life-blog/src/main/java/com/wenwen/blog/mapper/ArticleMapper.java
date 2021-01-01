@@ -28,4 +28,17 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return 删除状态
      */
     int deleteOne(Integer articledId);
+
+    /**
+     * 热门文章标题，TOP9，按照点赞个数star_num倒叙取前9
+     * @return 热门文章标题
+     */
+    List<String> listTop9ArticleName();
+
+    /**
+     * 添加一条文章数据，返回主键ID
+     * @param blog 文章数据
+     * @return 主键ID
+     */
+    int addArticle(Article blog);
 }

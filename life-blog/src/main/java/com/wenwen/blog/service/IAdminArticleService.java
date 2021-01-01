@@ -31,4 +31,5 @@ public interface IAdminArticleService {
      * @return 删除状态
      */
     ResponseBase deleteArticle(Integer articledId);
+
 }

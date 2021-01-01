@@ -2,9 +2,10 @@ package com.wenwen.blog.controller.admin;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
+import com.wenwen.blog.service.IResArticleClassifyService;
 import com.wenwen.blog.service.impl.AdminArticleService;
+import com.wenwen.blog.service.impl.ResArticleClassifyServiceImpl;
 import com.wenwen.blog.util.response.ResponseBase;
-import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserContext;
 import com.wenwen.common.context.UserInfo;
@@ -12,7 +13,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -29,6 +29,10 @@ public class AdminArticleController {
 
     @Autowired
     AdminArticleService adminArticleService;
+
+    @Autowired
+    ResArticleClassifyServiceImpl resArticleClassifyService;
+
     @GetMapping("/test")
     public String test(){
         return "测试拦截器！";
@@ -76,5 +80,13 @@ public class AdminArticleController {
             return response;
         }
         return adminArticleService.deleteArticle(articledId);
+    }
+
+    @ApiOperation(value = "通过分类ID查用户文章 @author 王文磊",notes = "通过分类ID查用户文章")
+    @ApiImplicitParam(name = "classifyId", required = true, paramType = "query", value = "分类ID")
+    @GetMapping("/listArticleFromClassifyId")
+    public ResponseListBase<Article> listArticleFromClassifyId(@RequestParam("classifyId")Integer classifyId){
+        UserInfo userInfo= UserContext.getUserContext();
+        return resArticleClassifyService.listArticleFromClassifyId(classifyId,userInfo.getUserId());
     }
 }

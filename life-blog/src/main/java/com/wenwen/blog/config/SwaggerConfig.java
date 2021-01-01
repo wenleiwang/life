@@ -18,7 +18,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .pathMapping("/")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ink.poesy.life.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.wenwen"))
                 .build().apiInfo(apiInfo());
 
     }
