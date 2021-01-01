@@ -6,6 +6,7 @@ import com.wenwen.blog.service.IResArticleClassifyService;
 import com.wenwen.blog.service.impl.AdminArticleService;
 import com.wenwen.blog.service.impl.ResArticleClassifyServiceImpl;
 import com.wenwen.blog.util.response.ResponseBase;
+import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserContext;
 import com.wenwen.common.context.UserInfo;
@@ -40,10 +41,13 @@ public class AdminArticleController {
 
     @ApiOperation(value = "管理员添加或修改文章 @author 王文磊",notes = "添加和修改使用一个接口")
     @PostMapping("/updateArticle")
-    public ResponseBase updateArticle(@RequestBody ArticleRequest article){
+    public ResponseDataBase<Integer> updateArticle(@RequestBody ArticleRequest article){
         UserInfo userContext = UserContext.getUserContext();
         if(userContext == null){
-            return new ResponseBase().fail("用户登录失败，请重新登录！");
+            ResponseDataBase<Integer> response = new ResponseDataBase<>();
+            response.fail("用户登录失败，请重新登录！");
+            response.setData(0);
+            return response;
         }
         return adminArticleService.updateArticle(article,userContext);
     }
@@ -66,6 +70,20 @@ public class AdminArticleController {
             return response;
         }
         return adminArticleService.listArticle(search,pageNum,pageSize,userInfo.getUserId());
+    }
+
+    @ApiOperation(value = "获取一条文章的详情 @author 王文磊",notes = "获取一条文章的详情")
+    @ApiImplicitParam(name = "articledId", required = true, paramType = "query", value = "文章ID")
+    @GetMapping("/getArticle")
+    public ResponseDataBase<Article> getArticle(@RequestParam("articleId") Integer articledId){
+        UserInfo userInfo= UserContext.getUserContext();
+        if(userInfo == null) {
+            ResponseDataBase<Article> response = new ResponseDataBase<>();
+            response.setData(null);
+            response.fail("用户信息获取失败，请重新登录！");
+            return response;
+        }
+        return adminArticleService.getArticle(articledId);
     }
 
     @ApiOperation(value = "删除一条文章 @author 王文磊",notes = "逻辑删除文章")

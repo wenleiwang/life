@@ -71,7 +71,7 @@ public class Article implements Serializable {
     )
     private Date updateTime;
 
-    private Boolean deleted;
+    private Integer deleted;
 
     /**
      * 点赞数量

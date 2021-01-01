@@ -80,7 +80,7 @@
         select article_name from blog_article where deleted = 0 order by star_num desc limit 9;
     </select>
 
-    <select id="listArticleFromClassifyId" resultType="com.wenwen.blog.entity.Article">
-
+    <select id="getArticle" resultType="com.wenwen.blog.entity.Article">
+        select * from blog_article where article_id = #{articledId};
     </select>
 </mapper>

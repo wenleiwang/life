@@ -41,4 +41,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return 主键ID
      */
     int addArticle(Article blog);
+
+    /**
+     * 通过文章ID获取文章详情
+     * @param articledId 文章ID
+     * @return 文章详情
+     */
+    Article getArticle(Integer articledId);
 }

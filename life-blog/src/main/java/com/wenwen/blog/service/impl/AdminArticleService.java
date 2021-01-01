@@ -9,6 +9,7 @@ import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.mapper.ResArticleClassifyMapper;
 import com.wenwen.blog.service.IAdminArticleService;
 import com.wenwen.blog.util.response.ResponseBase;
+import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -41,9 +42,27 @@ public class AdminArticleService implements IAdminArticleService {
      * @return 是否成功
      */
     @Override
-    public ResponseBase updateArticle(ArticleRequest article, UserInfo userContext) {
+    public ResponseDataBase<Integer> updateArticle(ArticleRequest article, UserInfo userContext) {
+        ResponseDataBase<Integer> response = new ResponseDataBase<>();
         Article blog = new Article();
         Date date = new Date();
+        //处理判断为空
+        if(StringUtils.isBlank(article.getArticleBody())){
+            response.fail("文章不能为空！");
+            response.setData(0);
+            return response;
+        }
+        if(StringUtils.isBlank(article.getArticleName())){
+            response.fail("文章不能没有标题！");
+            return response;
+        }
+        if(article.getArticleFlag() != null && article.getArticleFlag() != 0 && article.getArticleFlag() != 1 && article.getArticleFlag() != 2){
+            response.fail("没给文章标志，原创、转载还是翻译啊？");
+            return response;
+        }
+        if(StringUtils.isBlank(article.getArticleImgUrl())){
+            article.setArticleImgUrl("");
+        }
         blog.setArticleName(article.getArticleName());
         blog.setArticleBody(article.getArticleBody());
         if(StringUtils.isBlank(article.getArticleDescription())){
@@ -54,25 +73,23 @@ public class AdminArticleService implements IAdminArticleService {
             }
         }
         blog.setArticleFlag(article.getArticleFlag());
-        if(StringUtils.isNotBlank(article.getArticleImgUrl())){
-            blog.setArticleImgUrl(article.getArticleImgUrl());
-        }else{
-            blog.setArticleImgUrl("article.getArticleImgUrl()");
-        }
-
-        blog.setCollectNum(article.getArticleFlag());
+        blog.setArticleImgUrl(article.getArticleImgUrl());
         blog.setStarStatus(article.getStarStatus());
         blog.setCollectStatus(article.getCollectStatus());
         blog.setCommentStatus(article.getCommentStatus());
         blog.setUserId(userContext.getUserId());
-        if(article.getArticleId() == null ){
+        if(article.getArticleId() == null || article.getArticleId() <= 0){
+            if(article.getDeleted() != null && article.getDeleted() != 0 && article.getDeleted() != 1 && article.getDeleted() != 2){
+                response.fail("文章状态不能为空！");
+                return response;
+            }
             // 插入文章
             blog.setAddTime(date);
             blog.setUpdateTime(date);
             blog.setCommentNum(0);
             blog.setCollectNum(0);
             blog.setStarNum(0);
-            blog.setDeleted(false);
+            blog.setDeleted(article.getDeleted());
             int insert = articleMapper.addArticle(blog);
             // 插入分类
             if(article.getClassifyIdList() != null && article.getClassifyIdList().size() > 0){
@@ -91,9 +108,12 @@ public class AdminArticleService implements IAdminArticleService {
             }
 
             if(insert > 0){
-                return new ResponseBase().successful("插入文章成功！");
+                response.successful("插入文章成功！");
+                response.setData(blog.getArticleId());
+                return response;
             }else{
-                return new ResponseBase().fail("插入文章异常，操作数据库失败！");
+                response.fail("插入文章异常，操作数据库失败！");
+                return response;
             }
         }else{
             // TODO 判断是否存在
@@ -142,9 +162,12 @@ public class AdminArticleService implements IAdminArticleService {
             blog.setUpdateTime(date);
             int insert = articleMapper.updateById(blog);
             if(insert > 0){
-                return new ResponseBase().successful("更新文章成功！");
+                response.successful("更新文章成功！");
+                response.setData(article.getArticleId());
+                return response;
             }else{
-                return new ResponseBase().fail("更新文章异常，操作数据库失败！");
+                response.fail("更新文章异常，操作数据库失败！");
+                return response;
             }
         }
     }
@@ -185,5 +208,17 @@ public class AdminArticleService implements IAdminArticleService {
         }else{
             return response.fail("此篇文章不存在！");
         }
+    }
+
+    @Override
+    public ResponseDataBase<Article> getArticle(Integer articledId) {
+        ResponseDataBase<Article> response = new ResponseDataBase<>();
+        if(articledId <= 0 ){
+            response.fail("文章ID非法！");
+            return response;
+        }
+        response.setData(articleMapper.getArticle(articledId));
+        response.successful("获取文章成功！");
+        return response;
     }
 }

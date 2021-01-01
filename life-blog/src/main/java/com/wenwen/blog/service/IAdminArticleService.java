@@ -3,6 +3,7 @@ package com.wenwen.blog.service;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.util.response.ResponseBase;
+import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import com.wenwen.common.context.UserInfo;
 
@@ -32,4 +33,10 @@ public interface IAdminArticleService {
      */
     ResponseBase deleteArticle(Integer articledId);
 
+    /**
+     * 获取一篇文章的详情
+     * @param articledId 文章的ID
+     * @return 文章详情对象
+     */
+    ResponseDataBase<Article> getArticle(Integer articledId);
 }
