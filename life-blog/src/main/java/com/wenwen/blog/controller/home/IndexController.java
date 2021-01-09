@@ -4,7 +4,10 @@ import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.User;
 import com.wenwen.blog.mapper.UserMapper;
 import com.wenwen.blog.service.IIndexService;
+import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
+import com.wenwen.common.context.UserContext;
+import com.wenwen.common.context.UserInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -56,8 +59,10 @@ public class IndexController {
         return indexService.listClassify(userId);
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "{\"name\":\"测试前端请求！\"}";
+    @ApiOperation(value = "获取一条文章的详情 @author 王文磊",notes = "获取一条文章的详情")
+    @ApiImplicitParam(name = "articledId", required = true, paramType = "query", value = "文章ID")
+    @GetMapping("/getArticle")
+    public ResponseDataBase<Article> getArticle(@RequestParam("articleId") Integer articledId){
+        return indexService.getArticle(articledId);
     }
 }

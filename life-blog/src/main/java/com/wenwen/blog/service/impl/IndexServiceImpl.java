@@ -4,6 +4,7 @@ import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.mapper.ArticleMapper;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IIndexService;
+import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,18 @@ public class IndexServiceImpl implements IIndexService {
             response.setData(new ArrayList<>());
             response.successful("数据库获取数据失败！");
         }
+        return response;
+    }
+
+    @Override
+    public ResponseDataBase<Article> getArticle(Integer articledId) {
+        ResponseDataBase<Article> response = new ResponseDataBase<>();
+        if(articledId <= 0 ){
+            response.fail("文章ID非法！");
+            return response;
+        }
+        response.setData(articleMapper.getArticle(articledId));
+        response.successful("获取文章成功！");
         return response;
     }
 }
