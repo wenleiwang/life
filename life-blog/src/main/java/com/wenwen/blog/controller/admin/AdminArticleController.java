@@ -2,6 +2,7 @@ package com.wenwen.blog.controller.admin;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.service.IResArticleClassifyService;
 import com.wenwen.blog.service.impl.AdminArticleService;
 import com.wenwen.blog.service.impl.ResArticleClassifyServiceImpl;
@@ -59,12 +60,12 @@ public class AdminArticleController {
             @ApiImplicitParam(value = "页大小",dataType = "int", example = "10",paramType = "query",name = "pageSize")
     })
     @GetMapping("/listArticle")
-    public ResponseListBase<Article> listArticle(@RequestParam(value = "search", required = false) String search,
-                                                 @RequestParam(value = "pageNum", required = false) Integer pageNum,
-                                                 @RequestParam(value = "pageSize", required = false) Integer pageSize){
+    public ResponseListBase<ArticleResponse> listArticle(@RequestParam(value = "search", required = false) String search,
+                                                         @RequestParam(value = "pageNum", required = false) Integer pageNum,
+                                                         @RequestParam(value = "pageSize", required = false) Integer pageSize){
         UserInfo userInfo= UserContext.getUserContext();
         if(userInfo == null) {
-            ResponseListBase<Article> response = new ResponseListBase<>();
+            ResponseListBase<ArticleResponse> response = new ResponseListBase<>();
             response.setData(null);
             response.fail("用户信息获取失败，请重新登录！");
             return response;
@@ -75,10 +76,10 @@ public class AdminArticleController {
     @ApiOperation(value = "获取一条文章的详情 @author 王文磊",notes = "获取一条文章的详情")
     @ApiImplicitParam(name = "articledId", required = true, paramType = "query", value = "文章ID")
     @GetMapping("/getArticle")
-    public ResponseDataBase<Article> getArticle(@RequestParam("articleId") Integer articledId){
+    public ResponseDataBase<ArticleResponse> getArticle(@RequestParam("articleId") Integer articledId){
         UserInfo userInfo= UserContext.getUserContext();
         if(userInfo == null) {
-            ResponseDataBase<Article> response = new ResponseDataBase<>();
+            ResponseDataBase<ArticleResponse> response = new ResponseDataBase<>();
             response.setData(null);
             response.fail("用户信息获取失败，请重新登录！");
             return response;

@@ -1,9 +1,9 @@
 package com.wenwen.blog.entity;
 
-import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,6 +17,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@TableName("blog_res_article_tag")
 public class BlogResArticleTag implements Serializable {
 
     private static final long serialVersionUID = 1L;

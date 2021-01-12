@@ -2,6 +2,7 @@ package com.wenwen.blog.service;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 
@@ -15,7 +16,7 @@ public interface IIndexService {
      * @param pageSize 页大小
      * @return 符合条件的列表
      */
-    ResponseListBase<Article> listArticle(String search, Integer pageNum, Integer pageSize);
+    ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize);
 
     /**
      * 获取TOP9的文章标题
@@ -35,5 +36,5 @@ public interface IIndexService {
      * @param articledId 文章ID
      * @return 文章
      */
-    ResponseDataBase<Article> getArticle(Integer articledId);
+    ResponseDataBase<ArticleResponse> getArticle(Integer articledId);
 }

@@ -5,6 +5,7 @@ import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.BlogResArticleTag;
 import com.wenwen.blog.entity.ResArticleClassify;
 import com.wenwen.blog.entity.request.ArticleRequest;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.mapper.ArticleMapper;
 import com.wenwen.blog.mapper.BlogResArticleTagMapper;
 import com.wenwen.blog.mapper.ClassifyMapper;
@@ -129,42 +130,44 @@ public class AdminArticleService implements IAdminArticleService {
             // TODO 判断是否存在
             //修改分类
             List<Integer> newClassifyList = article.getTagIdList();
-            //得到现在的分类
-            List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(article.getArticleId());
-            List<Integer> deleteList = new ArrayList<>();
-            List<Integer> addList = new ArrayList<>();
+            if(newClassifyList != null){
+                //得到现在的分类
+                List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(article.getArticleId());
+                List<Integer> deleteList = new ArrayList<>();
+                List<Integer> addList = new ArrayList<>();
 
-            if(oldClassifyList != null){
-                for(Integer item : newClassifyList){
-                    if(!oldClassifyList.contains(item)){
-                        //新分类不在这个用户的分类中
-                        addList.add(item);
+                if(oldClassifyList != null){
+                    for(Integer item : newClassifyList){
+                        if(!oldClassifyList.contains(item)){
+                            //新分类不在这个用户的分类中
+                            addList.add(item);
+                        }
+                    }
+                    for(Integer item : oldClassifyList){
+                        if(!newClassifyList.contains(item)){
+                            deleteList.add(item);
+                        }
                     }
                 }
-                for(Integer item : oldClassifyList){
-                    if(!newClassifyList.contains(item)){
-                        deleteList.add(item);
+                if(deleteList.size() > 0){
+                    //删除，转换成(1,2,3)
+                    blogResArticleTagMapper.delete(new QueryWrapper<BlogResArticleTag>().in("tag_id",deleteList));
+                }
+                if(addList.size() > 0){
+                    //批量新增，sql转换成(1,2,3)
+                    List<BlogResArticleTag> resList = new ArrayList<>();
+                    Date now = new Date();
+                    for(Integer item : addList){
+                        BlogResArticleTag res = new BlogResArticleTag();
+                        res.setAddTime(now);
+                        res.setUpdateTime(now);
+                        res.setArticleId(article.getArticleId());
+                        res.setTagId(item);
+                        res.setDeleted(false);
+                        resList.add(res);
                     }
+                    blogResArticleTagMapper.insertList(resList);
                 }
-            }
-            if(deleteList.size() > 0){
-                //删除，转换成(1,2,3)
-                blogResArticleTagMapper.delete(new QueryWrapper<BlogResArticleTag>().in("tag_id",deleteList));
-            }
-            if(addList.size() > 0){
-                //批量新增，sql转换成(1,2,3)
-                List<BlogResArticleTag> resList = new ArrayList<>();
-                Date now = new Date();
-                for(Integer item : addList){
-                    BlogResArticleTag res = new BlogResArticleTag();
-                    res.setAddTime(now);
-                    res.setUpdateTime(now);
-                    res.setArticleId(article.getArticleId());
-                    res.setTagId(item);
-                    res.setDeleted(false);
-                    resList.add(res);
-                }
-                blogResArticleTagMapper.insertList(resList);
             }
 
             // 修改文章
@@ -183,20 +186,29 @@ public class AdminArticleService implements IAdminArticleService {
     }
 
     @Override
-    public ResponseListBase<Article> listArticle(String search, Integer pageNum, Integer pageSize, Integer userId) {
-        ResponseListBase<Article> response = new ResponseListBase<>();
+    public ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize, Integer userId) {
+        ResponseListBase<ArticleResponse> response = new ResponseListBase<>();
 
         if(pageSize == null || pageSize <= 0) pageSize = 10;
         if(pageNum == null || pageNum <= 0) pageNum = 1;
+
+        List<ArticleResponse> articles = new ArrayList<>();
+        int total = 0;
         if(StringUtils.isBlank(search)){
             //分页数量的全部列表
-            response.setData(articleMapper.listSearchOfName(userId,null,(pageNum - 1) * pageSize, pageSize));
-            response.setTotalCount(articleMapper.countForSearchOfName(userId,null));
+            articles = articleMapper.listSearchOfName(userId, null, (pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(userId, null);
+
         }else{
-            //
-            response.setData(articleMapper.listSearchOfName(userId,"%" + search.trim() + "%",(pageNum - 1) * pageSize, pageSize));
-            response.setTotalCount(articleMapper.countForSearchOfName(userId,"%" + search.trim() + "%"));
+            articles = articleMapper.listSearchOfName(userId,"%" + search.trim() + "%",(pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(userId,"%" + search.trim() + "%");
         }
+        for(ArticleResponse item : articles){
+            List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(item.getArticleId());
+            item.setTagIdList(oldClassifyList);
+        }
+        response.setData(articles);
+        response.setTotalCount(total);
         response.successful("查询成功！");
         return response;
     }
@@ -221,13 +233,15 @@ public class AdminArticleService implements IAdminArticleService {
     }
 
     @Override
-    public ResponseDataBase<Article> getArticle(Integer articledId) {
-        ResponseDataBase<Article> response = new ResponseDataBase<>();
+    public ResponseDataBase<ArticleResponse> getArticle(Integer articledId) {
+        ResponseDataBase<ArticleResponse> response = new ResponseDataBase<>();
         if(articledId <= 0 ){
             response.fail("文章ID非法！");
             return response;
         }
-        response.setData(articleMapper.getArticle(articledId));
+        ArticleResponse article = articleMapper.getArticle(articledId);
+        article.setTagIdList(blogResArticleTagMapper.listTagByArticleId(article.getArticleId()));
+        response.setData(article);
         response.successful("获取文章成功！");
         return response;
     }

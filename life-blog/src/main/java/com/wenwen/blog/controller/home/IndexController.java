@@ -3,6 +3,7 @@ package com.wenwen.blog.controller.home;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.entity.User;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.mapper.UserMapper;
 import com.wenwen.blog.service.IIndexService;
 import com.wenwen.blog.util.response.ResponseDataBase;
@@ -42,9 +43,9 @@ public class IndexController {
             @ApiImplicitParam(value = "页大小",dataType = "int", example = "10",paramType = "query",name = "pageSize")
     })
     @GetMapping("/listArticle")
-    public ResponseListBase<Article> listArticle(@RequestParam(value = "search", required = false) String search,
-                                                 @RequestParam(value = "pageNum", required = false) Integer pageNum,
-                                                 @RequestParam(value = "pageSize", required = false) Integer pageSize){
+    public ResponseListBase<ArticleResponse> listArticle(@RequestParam(value = "search", required = false) String search,
+                                                         @RequestParam(value = "pageNum", required = false) Integer pageNum,
+                                                         @RequestParam(value = "pageSize", required = false) Integer pageSize){
         return indexService.listArticle(search,pageNum,pageSize);
     }
 
@@ -63,7 +64,7 @@ public class IndexController {
     @ApiOperation(value = "获取一条文章的详情 @author 王文磊",notes = "获取一条文章的详情")
     @ApiImplicitParam(name = "articledId", required = true, paramType = "query", value = "文章ID")
     @GetMapping("/getArticle")
-    public ResponseDataBase<Article> getArticle(@RequestParam("articleId") Integer articledId){
+    public ResponseDataBase<ArticleResponse> getArticle(@RequestParam("articleId") Integer articledId){
         return indexService.getArticle(articledId);
     }
 }

@@ -2,6 +2,7 @@ package com.wenwen.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<Article> listSearchOfName(@Param("userId")Integer userId, @Param("search") String search,@Param("offset") int offset,@Param("pageSize") Integer pageSize);
+    List<ArticleResponse> listSearchOfName(@Param("userId")Integer userId, @Param("search") String search, @Param("offset") int offset, @Param("pageSize") Integer pageSize);
 
     int countForSearchOfName(@Param("userId")Integer userId, @Param("search") String search);
 
@@ -47,5 +48,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param articledId 文章ID
      * @return 文章详情
      */
-    Article getArticle(Integer articledId);
+    ArticleResponse getArticle(Integer articledId);
 }

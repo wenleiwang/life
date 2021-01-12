@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wenwen.blog.entity.BlogResArticleTag">
+<mapper namespace="com.wenwen.blog.mapper.BlogResArticleTagMapper">
     <insert id="insertList">
         insert into blog_res_article_tag (`article_id`, `tag_id`, `deleted`, `add_time`, `update_time`)
         values
@@ -11,5 +11,11 @@
 
     <select id="listTagByArticleId" resultType="java.lang.Integer">
         select tag_id from blog_res_article_tag where article_id = #{articleId};
+    </select>
+    <select id="listTagNameByTagId" resultType="com.wenwen.blog.entity.Tag">
+        select * from blog_tag where tag_id in (${sqlIdList}) and user_id = #{userId};
+    </select>
+    <select id="listTag" resultType="com.wenwen.blog.entity.Tag">
+        select * from blog_tag where user_id = #{userId};
     </select>
 </mapper>

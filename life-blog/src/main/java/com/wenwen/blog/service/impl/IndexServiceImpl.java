@@ -2,7 +2,9 @@ package com.wenwen.blog.service.impl;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.mapper.ArticleMapper;
+import com.wenwen.blog.mapper.BlogResArticleTagMapper;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IIndexService;
 import com.wenwen.blog.util.response.ResponseDataBase;
@@ -29,6 +31,9 @@ public class IndexServiceImpl implements IIndexService {
     @Autowired
     ClassifyMapper classifyMapper;
 
+    @Autowired
+    BlogResArticleTagMapper blogResArticleTagMapper;
+
     /**
      * 分页获取文章列表数据
      * @param search 查询条件
@@ -37,20 +42,29 @@ public class IndexServiceImpl implements IIndexService {
      * @return 符合条件的列表
      */
     @Override
-    public ResponseListBase<Article> listArticle(String search, Integer pageNum, Integer pageSize) {
-        ResponseListBase<Article> response = new ResponseListBase<>();
+    public ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize) {
+        ResponseListBase<ArticleResponse> response = new ResponseListBase<>();
 
         if(pageSize == null || pageSize <= 0) pageSize = 10;
         if(pageNum == null || pageNum <= 0) pageNum = 1;
+
+        List<ArticleResponse> articles = new ArrayList<>();
+        int total = 0;
         if(StringUtils.isBlank(search)){
             //分页数量的全部列表
-            response.setData(articleMapper.listSearchOfName(null,null,(pageNum - 1) * pageSize, pageSize));
-            response.setTotalCount(articleMapper.countForSearchOfName(null,null));
+            articles = articleMapper.listSearchOfName(null, null, (pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(null, null);
+
         }else{
-            //
-            response.setData(articleMapper.listSearchOfName(null,"%" + search.trim() + "%",(pageNum - 1) * pageSize, pageSize));
-            response.setTotalCount(articleMapper.countForSearchOfName(null,"%" + search.trim() + "%"));
+            articles = articleMapper.listSearchOfName(null,"%" + search.trim() + "%",(pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(null,"%" + search.trim() + "%");
         }
+        for(ArticleResponse item : articles){
+            List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(item.getArticleId());
+            item.setTagIdList(oldClassifyList);
+        }
+        response.setData(articles);
+        response.setTotalCount(total);
         response.successful("查询成功！");
         return response;
     }
@@ -84,13 +98,15 @@ public class IndexServiceImpl implements IIndexService {
     }
 
     @Override
-    public ResponseDataBase<Article> getArticle(Integer articledId) {
-        ResponseDataBase<Article> response = new ResponseDataBase<>();
+    public ResponseDataBase<ArticleResponse> getArticle(Integer articledId) {
+        ResponseDataBase<ArticleResponse> response = new ResponseDataBase<>();
         if(articledId <= 0 ){
             response.fail("文章ID非法！");
             return response;
         }
-        response.setData(articleMapper.getArticle(articledId));
+        ArticleResponse article = articleMapper.getArticle(articledId);
+        article.setTagIdList(blogResArticleTagMapper.listTagByArticleId(article.getArticleId()));
+        response.setData(article);
         response.successful("获取文章成功！");
         return response;
     }

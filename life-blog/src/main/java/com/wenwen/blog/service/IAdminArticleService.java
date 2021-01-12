@@ -2,6 +2,7 @@ package com.wenwen.blog.service;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
+import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
@@ -24,7 +25,7 @@ public interface IAdminArticleService {
      * @param userId 用户ID
      * @return 博客列表
      */
-    ResponseListBase<Article> listArticle(String search, Integer pageNum, Integer pageSize, Integer userId);
+    ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize, Integer userId);
 
     /**
      * 删除文章
@@ -38,5 +39,5 @@ public interface IAdminArticleService {
      * @param articledId 文章的ID
      * @return 文章详情对象
      */
-    ResponseDataBase<Article> getArticle(Integer articledId);
+    ResponseDataBase<ArticleResponse> getArticle(Integer articledId);
 }
