@@ -1,6 +1,7 @@
 package com.wenwen.blog.service.impl;
 
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.mapper.ArticleMapper;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IIndexService;
@@ -69,9 +70,9 @@ public class IndexServiceImpl implements IIndexService {
     }
 
     @Override
-    public ResponseListBase<String> listClassify(Integer userId) {
-        ResponseListBase<String> response = new ResponseListBase<>();
-        List<String> list = classifyMapper.listClassifyByUserId(userId);
+    public ResponseListBase<Classify> listClassify(Integer userId) {
+        ResponseListBase<Classify> response = new ResponseListBase<>();
+        List<Classify> list = classifyMapper.listClassifyByUserId(userId);
         if(list != null){
             response.setData(list);
             response.successful("获取数据成功！");

@@ -1,6 +1,7 @@
 package com.wenwen.blog.service;
 
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 
@@ -27,7 +28,7 @@ public interface IIndexService {
      * @param userId 用户ID
      * @return 对应用户的分类列表
      */
-    ResponseListBase<String> listClassify(Integer userId);
+    ResponseListBase<Classify> listClassify(Integer userId);
 
     /**
      * 通过ID获取文章

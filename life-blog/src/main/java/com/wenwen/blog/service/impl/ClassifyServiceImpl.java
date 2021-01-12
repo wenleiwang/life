@@ -5,10 +5,13 @@ import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IClassifyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wenwen.blog.util.response.ResponseBase;
+import com.wenwen.blog.util.response.ResponseListBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -18,6 +21,7 @@ import java.util.Date;
  * @author WenleiWang
  * @since 2020-11-06
  */
+@Primary
 @Service
 public class ClassifyServiceImpl extends ServiceImpl<ClassifyMapper, Classify> implements IClassifyService {
     @Autowired
@@ -71,6 +75,27 @@ public class ClassifyServiceImpl extends ServiceImpl<ClassifyMapper, Classify> i
         }else{
             response.fail("删除分类失败，操作数据库失败！");
         }
+        return response;
+    }
+
+    @Override
+    public ResponseListBase<Classify> listClassify(Integer userId) {
+        ResponseListBase<Classify> response = new ResponseListBase<>();
+        if (userId == null || userId <= 0){
+            response.fail("用户非法");
+            return response;
+        }
+        List<Classify> list = classifyMapper.listClassifyByUserId(userId);
+        if(list == null){
+            response.fail("查询出错！");
+            return response;
+        }
+        if(list.size() == 0){
+            response.successful("查询成功，没有符合条件的数据！");
+            return response;
+        }
+        response.setData(list);
+        response.successful("查询成功！");
         return response;
     }
 }

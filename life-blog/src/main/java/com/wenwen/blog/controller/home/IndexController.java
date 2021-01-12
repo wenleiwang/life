@@ -1,6 +1,7 @@
 package com.wenwen.blog.controller.home;
 
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.entity.User;
 import com.wenwen.blog.mapper.UserMapper;
 import com.wenwen.blog.service.IIndexService;
@@ -55,7 +56,7 @@ public class IndexController {
 
     @ApiOperation(value = "分类列表")
     @GetMapping("/listClassify")
-    public ResponseListBase<String> listClassify(@RequestParam("userId") Integer userId){
+    public ResponseListBase<Classify> listClassify(@RequestParam("userId") Integer userId){
         return indexService.listClassify(userId);
     }
 

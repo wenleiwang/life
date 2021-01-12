@@ -3,6 +3,7 @@ package com.wenwen.blog.service;
 import com.wenwen.blog.entity.Classify;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wenwen.blog.util.response.ResponseBase;
+import com.wenwen.blog.util.response.ResponseListBase;
 
 /**
  * <p>
@@ -23,4 +24,11 @@ public interface IClassifyService extends IService<Classify> {
     ResponseBase updateClassify(Integer classifyId, Integer userId, String classifyName);
 
     ResponseBase deleteClassify(Integer classifyId);
+
+    /**
+     * 获取该用户全部分类
+     * @param userId 用户ID
+     * @return 该用户全部分类
+     */
+    ResponseListBase<Classify> listClassify(Integer userId);
 }

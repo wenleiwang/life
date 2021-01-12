@@ -1,6 +1,7 @@
 package com.wenwen.blog.controller.admin;
 
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.service.IClassifyService;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseListBase;
@@ -11,16 +12,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 分类的增删改查
  * @author WangWenLei
  * @DATE: 2020/11/9
  **/
+@RestController
 @RequestMapping("/admin")
 public class AdminClassifyController {
     @Autowired
     IClassifyService classifyService;
+
+    @ApiOperation(value = "获取该用户全部分类")
+    @GetMapping("/listClassify")
+    public ResponseListBase<Classify> listClassify(){
+        final UserInfo userContext = UserContext.getUserContext();
+        if(userContext == null){
+            ResponseListBase<Classify> response = new ResponseListBase<>();
+            response.fail("请重新登录");
+            return response;
+        }
+        return classifyService.listClassify(userContext.getUserId());
+    }
 
     @ApiOperation(value = "用户更新/添加分类")
     @GetMapping("/updateClassify")

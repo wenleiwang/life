@@ -23,7 +23,7 @@ public interface ClassifyMapper extends BaseMapper<Classify> {
      * @param userId
      * @return
      */
-    List<String> listClassifyByUserId(@Param("userId") Integer userId);
+    List<Classify> listClassifyByUserId(@Param("userId") Integer userId);
 
     /**
      * 删除传入类中没有的类
