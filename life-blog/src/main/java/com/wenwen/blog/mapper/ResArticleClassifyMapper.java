@@ -3,6 +3,7 @@ package com.wenwen.blog.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.ResArticleClassify;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author WenleiWang
  * @since 2020-11-09
  */
+@Mapper
 public interface ResArticleClassifyMapper extends BaseMapper<ResArticleClassify> {
 
     /**

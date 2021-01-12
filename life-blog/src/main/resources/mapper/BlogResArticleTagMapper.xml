@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenwen.blog.entity.BlogResArticleTag">
+    <insert id="insertList">
+        insert into blog_res_article_tag (`article_id`, `tag_id`, `deleted`, `add_time`, `update_time`)
+        values
+        <foreach collection="resList" item="item" separator=",">
+            (#{item.articleId},#{item.tagId},#{item.deleted},#{item.addTime},#{item.updateTime})
+        </foreach>
+    </insert>
+
+    <select id="listTagByArticleId" resultType="java.lang.Integer">
+        select tag_id from blog_res_article_tag where article_id = #{articleId};
+    </select>
+</mapper>

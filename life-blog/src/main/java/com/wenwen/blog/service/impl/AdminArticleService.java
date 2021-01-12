@@ -2,9 +2,11 @@ package com.wenwen.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wenwen.blog.entity.Article;
+import com.wenwen.blog.entity.BlogResArticleTag;
 import com.wenwen.blog.entity.ResArticleClassify;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.mapper.ArticleMapper;
+import com.wenwen.blog.mapper.BlogResArticleTagMapper;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.mapper.ResArticleClassifyMapper;
 import com.wenwen.blog.service.IAdminArticleService;
@@ -33,6 +35,9 @@ public class AdminArticleService implements IAdminArticleService {
     ResArticleClassifyMapper resArticleClassifyMapper;
 
     @Autowired
+    BlogResArticleTagMapper blogResArticleTagMapper;
+
+    @Autowired
     ClassifyMapper classifyMapper;
 
     /**
@@ -56,6 +61,10 @@ public class AdminArticleService implements IAdminArticleService {
             response.fail("文章不能没有标题！");
             return response;
         }
+        if(StringUtils.isBlank(article.getClassifyName())){
+            response.fail("文章不能没有分类！");
+            return response;
+        }
         if(article.getArticleFlag() != null && article.getArticleFlag() != 0 && article.getArticleFlag() != 1 && article.getArticleFlag() != 2){
             response.fail("没给文章标志，原创、转载还是翻译啊？");
             return response;
@@ -72,6 +81,7 @@ public class AdminArticleService implements IAdminArticleService {
                 blog.setArticleDescription(article.getArticleBody().substring(0,100));
             }
         }
+        blog.setClassifyName(article.getClassifyName());
         blog.setArticleFlag(article.getArticleFlag());
         blog.setArticleImgUrl(article.getArticleImgUrl());
         blog.setStarStatus(article.getStarStatus());
@@ -92,19 +102,19 @@ public class AdminArticleService implements IAdminArticleService {
             blog.setDeleted(article.getDeleted());
             int insert = articleMapper.addArticle(blog);
             // 插入分类
-            if(article.getClassifyIdList() != null && article.getClassifyIdList().size() > 0){
+            if(article.getTagIdList() != null && article.getTagIdList().size() > 0){
                 Date now = new Date();
-                List<ResArticleClassify> resList = new ArrayList<>();
-                for(Integer item : article.getClassifyIdList()){
-                    ResArticleClassify res = new ResArticleClassify();
+                List<BlogResArticleTag> resList = new ArrayList<>();
+                for(Integer item : article.getTagIdList()){
+                    BlogResArticleTag res = new BlogResArticleTag();
                     res.setAddTime(now);
                     res.setUpdateTime(now);
                     res.setArticleId(blog.getArticleId());
-                    res.setClassifyId(item);
+                    res.setTagId(item);
                     res.setDeleted(false);
                     resList.add(res);
                 }
-                resArticleClassifyMapper.insertList(resList);
+                blogResArticleTagMapper.insertList(resList);
             }
 
             if(insert > 0){
@@ -118,9 +128,9 @@ public class AdminArticleService implements IAdminArticleService {
         }else{
             // TODO 判断是否存在
             //修改分类
-            List<Integer> newClassifyList = article.getClassifyIdList();
+            List<Integer> newClassifyList = article.getTagIdList();
             //得到现在的分类
-            List<Integer> oldClassifyList = resArticleClassifyMapper.listClassifyByArticleId(article.getArticleId());
+            List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(article.getArticleId());
             List<Integer> deleteList = new ArrayList<>();
             List<Integer> addList = new ArrayList<>();
 
@@ -139,22 +149,22 @@ public class AdminArticleService implements IAdminArticleService {
             }
             if(deleteList.size() > 0){
                 //删除，转换成(1,2,3)
-                resArticleClassifyMapper.delete(new QueryWrapper<ResArticleClassify>().in("classify_id",deleteList));
+                blogResArticleTagMapper.delete(new QueryWrapper<BlogResArticleTag>().in("tag_id",deleteList));
             }
             if(addList.size() > 0){
                 //批量新增，sql转换成(1,2,3)
-                List<ResArticleClassify> resList = new ArrayList<>();
+                List<BlogResArticleTag> resList = new ArrayList<>();
                 Date now = new Date();
                 for(Integer item : addList){
-                    ResArticleClassify res = new ResArticleClassify();
+                    BlogResArticleTag res = new BlogResArticleTag();
                     res.setAddTime(now);
                     res.setUpdateTime(now);
                     res.setArticleId(article.getArticleId());
-                    res.setClassifyId(item);
+                    res.setTagId(item);
                     res.setDeleted(false);
                     resList.add(res);
                 }
-                resArticleClassifyMapper.insertList(resList);
+                blogResArticleTagMapper.insertList(resList);
             }
 
             // 修改文章

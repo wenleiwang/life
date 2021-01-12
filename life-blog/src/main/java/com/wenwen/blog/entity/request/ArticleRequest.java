@@ -66,8 +66,11 @@ public class ArticleRequest {
     @ApiModelProperty(value = "文章标志")
     private Integer articleFlag;
 
-    @ApiModelProperty(value = "文章分类ID列表")
-    private List<Integer> classifyIdList;
+    @ApiModelProperty(value = "文章分类")
+    private String classifyName;
+
+    @ApiModelProperty(value = "文章标签ID列表")
+    private List<Integer> tagIdList;
 
     @ApiModelProperty(value = "0-发布；1-删除；2-草稿")
     private Integer deleted;
