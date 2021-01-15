@@ -42,6 +42,11 @@ public class Comment implements Serializable {
     private Integer commentParent;
 
     /**
+     * 是否被作者阅读
+     */
+    private Integer readStatus;
+
+    /**
      * 评论用户
      */
     private Integer userId;
