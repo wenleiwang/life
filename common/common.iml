@@ -158,26 +158,6 @@
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.7.21" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-redis:2.3.3.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:2.3.3.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-keyvalue:2.3.3.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-oxm:5.2.8.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.2.8.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: io.lettuce:lettuce-core:5.3.3.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.51.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.51.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.51.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.51.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.51.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.51.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.3.9.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.4.10" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.10" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test:1.4.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test-common:1.4.10" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.69" level="project" />
   </component>
 </module>

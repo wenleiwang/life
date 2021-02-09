@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan("com.wenwen.blog.mapper")//开启Mybatis-plus注解,需要扫描Service和Mapper才行
 public class LifeBlogApplication {
 	public static void main(String[] args) {
+		System.out.println(new LifeBlogApplication().getClass().getClassLoader().getResource("").getPath());
 		SpringApplication.run(LifeBlogApplication.class, args);
 	}
 }

@@ -18,47 +18,12 @@
 	</properties>
 
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter</artifactId>-->
-<!--		</dependency>-->
-
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-test</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--			<exclusions>-->
-<!--				<exclusion>-->
-<!--					<groupId>org.junit.vintage</groupId>-->
-<!--					<artifactId>junit-vintage-engine</artifactId>-->
-<!--				</exclusion>-->
-<!--			</exclusions>-->
-<!--		</dependency>-->
 
 		<dependency>
 			<groupId>com.wenwen</groupId>
 			<artifactId>common</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-
-<!--		前端页面解析依赖-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.62</version>
-		</dependency>
-
-
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-web</artifactId>-->
-<!--		</dependency>-->
 
 <!--		spring任务的依赖-->
 		<dependency>
@@ -68,19 +33,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- mysql数据库的驱动包 start -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.38</version>
-		</dependency>
-
-		<!-- druid -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.0.18</version>
-		</dependency>
 <!--		开启redis-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -104,8 +56,13 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
