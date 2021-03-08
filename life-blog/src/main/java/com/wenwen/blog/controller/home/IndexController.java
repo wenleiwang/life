@@ -36,6 +36,11 @@ public class IndexController {
         return "";
     }
 
+    @GetMapping("/test")
+    public String test(){
+        return "测试成功！";
+    }
+
     @ApiOperation(value = "分页文章列表包含搜索 @author 王文磊",notes = "默认第一页，20条记录")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "搜索条件",dataType = "String", example = "北京",paramType = "query",name = "search"),
