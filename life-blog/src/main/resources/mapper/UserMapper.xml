@@ -8,4 +8,9 @@
     <select id="listUserOne" resultType="java.util.Map">
         select user_name,user_password from blog_user where user_id = 4
     </select>
+
+<!--    通过用户名密码获取用户信息-->
+    <select id="login" resultType="com.wenwen.blog.entity.User">
+        select * from blog_user where login_name = #{loginName} and user_password = #{password};
+    </select>
 </mapper>
