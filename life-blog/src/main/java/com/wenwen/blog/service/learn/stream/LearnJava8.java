@@ -56,5 +56,7 @@ public class LearnJava8 {
         System.out.println("列表中最大数 : " + intSummaryStatistics.getMax());
         System.out.println("列表中平均数 : " + intSummaryStatistics.getMin());
         System.out.println("列表中总数 : " + intSummaryStatistics.getSum());
+
+
     }
 }
