@@ -2,6 +2,7 @@ package com.wenwen.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wenwen.blog.entity.User;
+import com.wenwen.blog.entity.response.UserResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,5 +28,5 @@ public interface UserMapper extends BaseMapper<User> {
      * @param password 用户密码
      * @return 通过用户名密码获取用户信息
      */
-    User login(@Param("loginName") String loginName, @Param("password") String password);
+    UserResponse login(@Param("loginName") String loginName, @Param("password") String password);
 }

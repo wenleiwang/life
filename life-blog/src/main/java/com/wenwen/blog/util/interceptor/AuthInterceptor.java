@@ -3,6 +3,7 @@ package com.wenwen.blog.util.interceptor;
 
 import com.wenwen.blog.entity.User;
 import com.wenwen.blog.mapper.UserMapper;
+import com.wenwen.blog.util.EnDecoderUtil;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.common.context.UserContext;
 import com.wenwen.common.context.UserInfo;
@@ -47,14 +48,15 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
 
         //声明用户id
-        String userId = null;
         final Cookie[] cookies = request.getCookies();
-        for(Cookie item : cookies){
-            if("user_info".equals(item.getName())){
-                userId = item.getValue();
-            }
-        }
-        if(userId == null){
+        String whyDoYouKnow = request.getHeader("Authorization");
+        // 把cookie换成Authorization
+//        for(Cookie item : cookies){
+//            if("why_do_you_know".equals(item.getName())){
+//                whyDoYouKnow = item.getValue();
+//            }
+//        }
+        if(whyDoYouKnow == null){
             ResponseBase responseBase = new ResponseBase();
             responseBase.fail("用户未登录，请重新登录！");
             String sr = ToolJson.writeValue(responseBase);
@@ -66,7 +68,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
         UserInfo userInfo = null;
-        if(StringUtils.isNotBlank(userId)){
+        if(StringUtils.isNotBlank(whyDoYouKnow)){
+            String s = whyDoYouKnow.split("_")[0];
+            String userId = EnDecoderUtil.AESDecrypt(s);
             final Integer integer = Integer.valueOf(userId);
             User user = userMapper.selectById(Integer.valueOf(userId));
            if(user == null){

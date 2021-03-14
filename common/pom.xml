@@ -111,6 +111,11 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.6</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.directory.studio</groupId>
+			<artifactId>org.apache.commons.codec</artifactId>
+			<version>1.8</version>
+		</dependency>
 
 <!--		用于JSON断言-->
 		<dependency>

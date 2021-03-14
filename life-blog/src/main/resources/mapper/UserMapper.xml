@@ -10,7 +10,7 @@
     </select>
 
 <!--    通过用户名密码获取用户信息-->
-    <select id="login" resultType="com.wenwen.blog.entity.User">
+    <select id="login" resultType="com.wenwen.blog.entity.response.UserResponse">
         select * from blog_user where login_name = #{loginName} and user_password = #{password};
     </select>
 </mapper>

@@ -1,8 +1,10 @@
 package com.wenwen.blog.controller.admin;
 
 import com.wenwen.blog.entity.User;
+import com.wenwen.blog.entity.response.UserResponse;
 import com.wenwen.blog.mapper.UserMapper;
 import com.wenwen.blog.service.IUserService;
+import com.wenwen.blog.util.EnDecoderUtil;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -12,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -44,8 +48,8 @@ public class Login {
             @ApiImplicitParam(name = "password" ,value = "password")
     })
     @PostMapping("/login")
-    public ResponseDataBase<User> login( @RequestBody User user){
-        ResponseDataBase<User> response = new ResponseDataBase<>();
+    public ResponseDataBase<UserResponse> login(@RequestBody User user){
+        ResponseDataBase<UserResponse> response = new ResponseDataBase<>();
         if(StringUtils.isBlank(user.getLoginName())){
             response.fail("请输入用户名！");
             return response;
@@ -54,7 +58,6 @@ public class Login {
             response.fail("请输入密码！");
             return response;
         }
-
-        return iUserService.login(user.getLoginName(),user.getUserPassword());
+        return iUserService.login(user.getLoginName(), user.getUserPassword());
     }
 }

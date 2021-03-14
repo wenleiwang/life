@@ -2,6 +2,7 @@ package com.wenwen.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wenwen.blog.entity.User;
+import com.wenwen.blog.entity.response.UserResponse;
 import com.wenwen.blog.util.response.ResponseDataBase;
 
 /**
@@ -20,5 +21,5 @@ public interface IUserService extends IService<User> {
      * @param password 用户密码
      * @return 登录成功返回用户信息
      */
-    ResponseDataBase<User> login(String loginName, String password);
+    ResponseDataBase<UserResponse> login(String loginName, String password);
 }
