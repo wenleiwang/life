@@ -19,7 +19,7 @@ import java.util.List;
 @Mapper
 public interface BlogResArticleTagMapper extends BaseMapper<BlogResArticleTag> {
 
-    void insertList(List<BlogResArticleTag> resList);
+    void insertList(@Param("resList") List<BlogResArticleTag> resList);
 
     List<Integer> listTagByArticleId(@Param("articleId") Integer articleId);
 

@@ -1,22 +1,32 @@
 package com.wenwen.blog.uploadingfiles.storage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.Region;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 @Service
 public class FileSystemStorageService implements StorageService {
-
+	Logger logger = LoggerFactory.getLogger(FileSystemStorageService.class);
+	String accessKey = "62knrQrpddGoaHNkPuYZT35tzsQCTd12vFxm9kmT";
+	String secretKey = "mbRKLiJ1RjdhU-uo0_7vhyN0jtukq8-GtSnrweAv";
+	String bucket = "poesy";
+	String key = null;
+	String url = "http://img.poesy.ink/";
 	/**地址*/
 	private final Path rootLocation = Paths.get("D:/log/data");
 
@@ -36,63 +46,43 @@ public class FileSystemStorageService implements StorageService {
 	}
 
 	@Override
-	public Stream<Path> loadAll() {
-		try {
-			return Files.walk(this.rootLocation, 1)
-					.filter(path -> !path.equals(this.rootLocation))
-					.map(path -> this.rootLocation.relativize(path));
-		} catch (IOException e) {
-			throw new StorageException("Failed to read stored files", e);
+	public String uploadToQiNiu(MultipartFile file) {
+		if (file.isEmpty()) {
+			throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
 		}
-
-	}
-
-	@Override
-	public Path load(String filename) {
-		return rootLocation.resolve(filename);
-	}
-
-	@Override
-	public Resource loadAsResource(String filename) {
+		InputStream inputStream = null;
 		try {
-			Path file = load(filename);
-			Resource resource = new UrlResource(file.toUri());
-			if(resource.exists() || resource.isReadable()) {
-				return resource;
-			}
-			else {
-				throw new StorageFileNotFoundException("Could not read file: " + filename);
-
-			}
-		} catch (MalformedURLException e) {
-			throw new StorageFileNotFoundException("Could not read file: " + filename, e);
-		}
-	}
-
-	@Override
-	public void deleteAll() {
-		FileSystemUtils.deleteRecursively(rootLocation.toFile());
-	}
-
-	@Override
-	public void init() {
-
-//			ClassLoader.getSystemResourceAsStream()
-		try {
-			Files.createDirectory(rootLocation);
+			inputStream = file.getInputStream();
 		} catch (IOException e) {
 			e.printStackTrace();
+			logger.error("文件转换成输入流失败！",e);
+			throw new StorageException("文件转换成输入流失败 " + e.toString());
 		}
-//			ClassPathResource classPathResource = new ClassPathResource("com/wenwen/life_blog/uploadingfiles/data" );
-//			classPathResource.createRelative("/data");
-
-//			URL systemResource = ClassLoader.getSystemResource("");
-//			System.out.println(systemResource.getPath());
-//			URL systemResource2 = ClassLoader.getSystemResource("");
-//			System.out.println(systemResource2.getPath());
-//			URL resource = FileSystemStorageService.class.getResource("/");
-//			URL resource2 = FileSystemStorageService.class.getResource("");
-//			System.out.println(resource.getPath());
-//			System.out.println(resource2.getPath());
+		Auth auth = Auth.create(accessKey, secretKey);
+		String upToken = auth.uploadToken(bucket);
+		Configuration cfg = new Configuration(Region.autoRegion());
+		UploadManager uploadManager = new UploadManager(cfg);
+		DefaultPutRet putRet = null;
+		try {
+			Response response = uploadManager.put(inputStream,key,upToken,null, null);
+			//解析上传成功的结果
+			putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
+		} catch (QiniuException ex) {
+			Response r = ex.response;
+			System.err.println(r.toString());
+			logger.error(r.toString());
+			try {
+				System.err.println(r.bodyString());
+				logger.error(r.bodyString());
+			} catch (QiniuException ex2) {
+				//ignore
+				logger.error(ex2.error());
+			}
+		}
+		if(putRet != null){
+			return url + putRet.key;
+		}else{
+			throw new StorageException("上传文件失败！" );
+		}
 	}
 }

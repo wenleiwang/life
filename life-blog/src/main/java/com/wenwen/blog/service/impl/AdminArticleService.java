@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author WangWenLei
@@ -77,14 +79,31 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setArticleBody(article.getArticleBody());
         if(StringUtils.isBlank(article.getArticleDescription())){
             if(article.getArticleBody().length() <= 100){
-                blog.setArticleDescription(article.getArticleBody());
+                blog.setArticleDescription(article.getArticleBody().replaceAll("#+ ",""));
             }else{
                 blog.setArticleDescription(article.getArticleBody().substring(0,100));
             }
         }
         blog.setClassifyName(article.getClassifyName());
         blog.setArticleFlag(article.getArticleFlag());
-        blog.setArticleImgUrl(article.getArticleImgUrl());
+        // 首图处理
+        if(StringUtils.isBlank(article.getArticleImgUrl())){
+            String pattern = "!\\[[a-z1-9A-Z.]+\\]\\([a-z1-9A-Z.:/-]+\\)";
+            Pattern r = Pattern.compile(pattern);
+            // 现在创建 matcher 对象
+            Matcher m = r.matcher(article.getArticleBody());
+            if (m.find()) {
+                Pattern r1 = Pattern.compile("\\([a-z1-9A-Z.:/-]+\\)");
+                Matcher m1 = r1.matcher(m.group(0));
+                if(m1.find()){
+                    String imgUrl = m1.group(0);
+                    blog.setArticleImgUrl(imgUrl.substring(1, imgUrl.length() - 1));
+                }
+            }
+        }else{
+            blog.setArticleImgUrl(article.getArticleImgUrl());
+        }
+
         blog.setStarStatus(article.getStarStatus());
         blog.setCollectStatus(article.getCollectStatus());
         blog.setCommentStatus(article.getCommentStatus());
@@ -102,7 +121,7 @@ public class AdminArticleService implements IAdminArticleService {
             blog.setStarNum(0);
             blog.setDeleted(article.getDeleted());
             int insert = articleMapper.addArticle(blog);
-            // 插入分类
+            // 插入标签
             if(article.getTagIdList() != null && article.getTagIdList().size() > 0){
                 Date now = new Date();
                 List<BlogResArticleTag> resList = new ArrayList<>();
