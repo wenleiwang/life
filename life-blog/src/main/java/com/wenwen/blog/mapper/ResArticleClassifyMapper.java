@@ -19,13 +19,7 @@ import java.util.List;
 @Mapper
 public interface ResArticleClassifyMapper extends BaseMapper<ResArticleClassify> {
 
-    /**
-     * 根据用户分类获取该用户文章列表
-     * @param classifyId 分类ID
-     * @param userId 用户ID
-     * @return 符合条件文章
-     */
-    List<Article> listArticleFromClassifyId(@RequestParam("classifyId") Integer classifyId,@RequestParam("userId") Integer userId);
+
 
     List<Integer> listClassifyByArticleId(Integer articleId);
 

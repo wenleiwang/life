@@ -1,9 +1,11 @@
 package com.wenwen.blog.mapper;
 
+import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -34,9 +36,18 @@ public interface ClassifyMapper extends BaseMapper<Classify> {
     int deleteOverClassify(String inClassify, Integer userId);
 
     /**
-     * 通过文章ID得到这个文章对应的分类ID列表
-     * @param articleId 文章ID
-     * @return 文章对应的分类ID列表
+     * 获取分类名对应的信息
+     * @param classifyName 分类名
+     * @param userId 用户ID
+     * @return 这个用户这个分类的信息
      */
-    List<Integer> listClassifyByArticleId(Integer articleId);
+    Classify getClassifyInfoByNameAndUserId(@Param("classifyName") String classifyName, @Param("userId") Integer userId);
+
+    /**
+     * 根据用户分类获取该用户文章列表
+     * @param classifyId 分类ID
+     * @param userId 用户ID
+     * @return 符合条件文章
+     */
+    List<Article> listArticleFromClassifyId(@RequestParam("classifyId") Integer classifyId, @RequestParam("userId") Integer userId);
 }

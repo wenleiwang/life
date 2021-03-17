@@ -1,5 +1,6 @@
 package com.wenwen.blog.service.impl;
 
+import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IClassifyService;
@@ -95,6 +96,16 @@ public class ClassifyServiceImpl extends ServiceImpl<ClassifyMapper, Classify> i
             return response;
         }
         response.setData(list);
+        response.successful("查询成功！");
+        return response;
+    }
+
+    @Override
+    public ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId) {
+        ResponseListBase<Article> response = new ResponseListBase<>();
+
+        List<Article> articles = classifyMapper.listArticleFromClassifyId(classifyId, userId);
+        response.setData(articles);
         response.successful("查询成功！");
         return response;
     }

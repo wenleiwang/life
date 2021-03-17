@@ -24,13 +24,5 @@ public class ResArticleClassifyServiceImpl extends ServiceImpl<ResArticleClassif
     @Autowired
     ResArticleClassifyMapper resArticleClassifyMapper;
 
-    @Override
-    public ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId) {
-        ResponseListBase<Article> response = new ResponseListBase<>();
 
-        List<Article> articles = resArticleClassifyMapper.listArticleFromClassifyId(classifyId, userId);
-        response.setData(articles);
-        response.successful("查询成功！");
-        return response;
-    }
 }

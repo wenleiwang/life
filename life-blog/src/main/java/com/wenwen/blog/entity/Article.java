@@ -49,6 +49,11 @@ public class Article implements Serializable {
     private String articleBody;
 
     /**
+     * 文章分类ID
+     */
+    private Integer classifyId;
+
+    /**
      * 文章分类
      */
     private String classifyName;

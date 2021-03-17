@@ -1,5 +1,6 @@
 package com.wenwen.blog.service;
 
+import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wenwen.blog.util.response.ResponseBase;
@@ -31,4 +32,12 @@ public interface IClassifyService extends IService<Classify> {
      * @return 该用户全部分类
      */
     ResponseListBase<Classify> listClassify(Integer userId);
+
+    /**
+     * 通过分类ID获取该用户次分类的文章列表
+     * @param classifyId 分类ID
+     * @param userId 用户ID
+     * @return 文章列表
+     */
+    ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId);
 }

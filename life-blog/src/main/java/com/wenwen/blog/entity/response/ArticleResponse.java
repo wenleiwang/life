@@ -69,6 +69,8 @@ public class ArticleResponse {
     @ApiModelProperty(value = "文章标志")
     private Integer articleFlag;
 
+    @ApiModelProperty(value = "文章分类ID")
+    private String classifyId;
     @ApiModelProperty(value = "文章分类")
     private String classifyName;
 

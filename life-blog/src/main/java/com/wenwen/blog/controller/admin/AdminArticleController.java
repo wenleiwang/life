@@ -3,8 +3,10 @@ package com.wenwen.blog.controller.admin;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.entity.response.ArticleResponse;
+import com.wenwen.blog.service.IClassifyService;
 import com.wenwen.blog.service.IResArticleClassifyService;
 import com.wenwen.blog.service.impl.AdminArticleService;
+import com.wenwen.blog.service.impl.ClassifyServiceImpl;
 import com.wenwen.blog.service.impl.ResArticleClassifyServiceImpl;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseDataBase;
@@ -34,6 +36,9 @@ public class AdminArticleController {
 
     @Autowired
     ResArticleClassifyServiceImpl resArticleClassifyService;
+
+    @Autowired
+    IClassifyService classifyService;
 
     @GetMapping("/test")
     public String test(){
@@ -106,6 +111,6 @@ public class AdminArticleController {
     @GetMapping("/listArticleFromClassifyId")
     public ResponseListBase<Article> listArticleFromClassifyId(@RequestParam("classifyId")Integer classifyId){
         UserInfo userInfo= UserContext.getUserContext();
-        return resArticleClassifyService.listArticleFromClassifyId(classifyId,userInfo.getUserId());
+        return classifyService.listArticleFromClassifyId(classifyId,userInfo.getUserId());
     }
 }

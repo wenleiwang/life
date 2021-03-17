@@ -3,6 +3,7 @@ package com.wenwen.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.BlogResArticleTag;
+import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.entity.ResArticleClassify;
 import com.wenwen.blog.entity.request.ArticleRequest;
 import com.wenwen.blog.entity.response.ArticleResponse;
@@ -84,6 +85,12 @@ public class AdminArticleService implements IAdminArticleService {
                 blog.setArticleDescription(article.getArticleBody().substring(0,100));
             }
         }
+        Classify classify = classifyMapper.getClassifyInfoByNameAndUserId(article.getClassifyName(),userContext.getUserId());
+        if(classify == null){
+            response.fail("文章分类不存在，请先创建文章分类！");
+            return response;
+        }
+        blog.setClassifyId(classify.getClassifyId());
         blog.setClassifyName(article.getClassifyName());
         blog.setArticleFlag(article.getArticleFlag());
         // 首图处理
