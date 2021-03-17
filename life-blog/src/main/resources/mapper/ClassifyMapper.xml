@@ -2,7 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wenwen.blog.mapper.ClassifyMapper">
     <select id="listClassifyByUserId" resultType="com.wenwen.blog.entity.Classify">
-        select * from blog_classify where deleted = 0 and user_id = #{userId} order by add_time desc;
+        select a.classify_id, a.classify_name, count(1) count
+        from blog_classify a
+                 left join blog_article b on a.classify_id = b.classify_id
+        <where>
+            <if test="userId != null and userId > 0">
+                a.user_id = #{userId}
+            </if>
+        </where>
+        group by a.classify_id, a.classify_name
+        order by count desc limit 0,6
     </select>
 
 <!--    获取分类名对应的信息-->

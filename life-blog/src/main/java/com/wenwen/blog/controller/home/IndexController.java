@@ -62,7 +62,7 @@ public class IndexController {
 
     @ApiOperation(value = "分类列表")
     @GetMapping("/listClassify")
-    public ResponseListBase<Classify> listClassify(@RequestParam("userId") Integer userId){
+    public ResponseListBase<Classify> listClassify(@RequestParam(value = "userId",required = false) Integer userId){
         return indexService.listClassify(userId);
     }
 
