@@ -1,0 +1,27 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.gitignore
+.idea/
+common/common.iml
+common/target/classes/com/wenwen/common/context/
+common/target/classes/com/wenwen/common/util/ToolJson.class
+common/target/common-0.0.1.jar
+common/target/common-0.0.1.jar.original
+common/target/generated-sources/
+common/target/generated-test-sources/
+common/target/maven-archiver/
+common/target/maven-status/
+common/target/surefire-reports/
+life-blog/life-blog.iml
+life-blog/src/main/java/com/wenwen/blog/service/learn/LikeFrame/
+life-blog/target/
+life-generator/life-generator.iml
+life-generator/target/
+target/
