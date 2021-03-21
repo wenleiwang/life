@@ -5,6 +5,7 @@ import com.wenwen.blog.entity.BlogResArticleTag;
 import com.wenwen.blog.entity.Tag;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @author WenleiWang
  * @since 2021-01-12
  */
-@Mapper
+@Repository
 public interface BlogResArticleTagMapper extends BaseMapper<BlogResArticleTag> {
 
     void insertList(@Param("resList") List<BlogResArticleTag> resList);

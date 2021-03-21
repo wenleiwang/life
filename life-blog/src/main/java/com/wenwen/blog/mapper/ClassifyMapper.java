@@ -5,6 +5,7 @@ import com.wenwen.blog.entity.Classify;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author WenleiWang
  * @since 2020-11-06
  */
-@Mapper
+@Repository
 public interface ClassifyMapper extends BaseMapper<Classify> {
 
     /**

@@ -16,7 +16,7 @@ public interface IIndexService {
      * @param pageSize 页大小
      * @return 符合条件的列表
      */
-    ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize);
+    ResponseListBase<ArticleResponse> listArticle(String search,Integer classifyId, Integer pageNum, Integer pageSize);
 
     /**
      * 获取TOP9的文章标题

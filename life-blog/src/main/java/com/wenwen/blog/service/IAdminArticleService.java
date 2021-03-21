@@ -25,7 +25,7 @@ public interface IAdminArticleService {
      * @param userId 用户ID
      * @return 博客列表
      */
-    ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize, Integer userId);
+    ResponseListBase<ArticleResponse> listArticle(String search,Integer classifyId, Integer pageNum, Integer pageSize, Integer userId);
 
     /**
      * 删除文章

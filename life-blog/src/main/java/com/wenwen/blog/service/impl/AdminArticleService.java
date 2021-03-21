@@ -212,7 +212,7 @@ public class AdminArticleService implements IAdminArticleService {
     }
 
     @Override
-    public ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize, Integer userId) {
+    public ResponseListBase<ArticleResponse> listArticle(String search,Integer classifyId, Integer pageNum, Integer pageSize, Integer userId) {
         ResponseListBase<ArticleResponse> response = new ResponseListBase<>();
 
         if(pageSize == null || pageSize <= 0) pageSize = 10;
@@ -222,12 +222,12 @@ public class AdminArticleService implements IAdminArticleService {
         int total = 0;
         if(StringUtils.isBlank(search)){
             //分页数量的全部列表
-            articles = articleMapper.listSearchOfName(userId, null, (pageNum - 1) * pageSize, pageSize);
-            total =  articleMapper.countForSearchOfName(userId, null);
+            articles = articleMapper.listSearchOfName(userId, null,classifyId, (pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(userId,classifyId, null);
 
         }else{
-            articles = articleMapper.listSearchOfName(userId,"%" + search.trim() + "%",(pageNum - 1) * pageSize, pageSize);
-            total =  articleMapper.countForSearchOfName(userId,"%" + search.trim() + "%");
+            articles = articleMapper.listSearchOfName(userId,"%" + search.trim() + "%",classifyId,(pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(userId,classifyId,"%" + search.trim() + "%");
         }
         for(ArticleResponse item : articles){
             List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(item.getArticleId());

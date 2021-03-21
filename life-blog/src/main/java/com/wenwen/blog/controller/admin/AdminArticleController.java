@@ -61,11 +61,13 @@ public class AdminArticleController {
     @ApiOperation(value = "分页文章列表包含搜索 @author 王文磊",notes = "默认第一页，20条记录")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "搜索条件",dataType = "String", example = "北京",paramType = "query",name = "search"),
+            @ApiImplicitParam(value = "classifyId",dataType = "int", example = "1",paramType = "query",name = "classifyId"),
             @ApiImplicitParam(value = "列表当前页",dataType = "int", example = "1",paramType = "query",name = "pageNum"),
             @ApiImplicitParam(value = "页大小",dataType = "int", example = "10",paramType = "query",name = "pageSize")
     })
     @GetMapping("/listArticle")
     public ResponseListBase<ArticleResponse> listArticle(@RequestParam(value = "search", required = false) String search,
+                                                         @RequestParam(value = "classifyId", required = false) Integer classifyId,
                                                          @RequestParam(value = "pageNum", required = false) Integer pageNum,
                                                          @RequestParam(value = "pageSize", required = false) Integer pageSize){
         UserInfo userInfo= UserContext.getUserContext();
@@ -75,7 +77,7 @@ public class AdminArticleController {
             response.fail("用户信息获取失败，请重新登录！");
             return response;
         }
-        return adminArticleService.listArticle(search,pageNum,pageSize,userInfo.getUserId());
+        return adminArticleService.listArticle(search,classifyId,pageNum,pageSize,userInfo.getUserId());
     }
 
     @ApiOperation(value = "获取一条文章的详情 @author 王文磊",notes = "获取一条文章的详情")

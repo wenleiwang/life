@@ -42,7 +42,7 @@ public class IndexServiceImpl implements IIndexService {
      * @return 符合条件的列表
      */
     @Override
-    public ResponseListBase<ArticleResponse> listArticle(String search, Integer pageNum, Integer pageSize) {
+    public ResponseListBase<ArticleResponse> listArticle(String search,Integer classifyId, Integer pageNum, Integer pageSize) {
         ResponseListBase<ArticleResponse> response = new ResponseListBase<>();
 
         if(pageSize == null || pageSize <= 0) pageSize = 10;
@@ -52,12 +52,12 @@ public class IndexServiceImpl implements IIndexService {
         int total = 0;
         if(StringUtils.isBlank(search)){
             //分页数量的全部列表
-            articles = articleMapper.listSearchOfName(null, null, (pageNum - 1) * pageSize, pageSize);
-            total =  articleMapper.countForSearchOfName(null, null);
+            articles = articleMapper.listSearchOfName(null, null,classifyId, (pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(null,classifyId, null);
 
         }else{
-            articles = articleMapper.listSearchOfName(null,"%" + search.trim() + "%",(pageNum - 1) * pageSize, pageSize);
-            total =  articleMapper.countForSearchOfName(null,"%" + search.trim() + "%");
+            articles = articleMapper.listSearchOfName(null,"%" + search.trim() + "%",classifyId,(pageNum - 1) * pageSize, pageSize);
+            total =  articleMapper.countForSearchOfName(null,classifyId,"%" + search.trim() + "%");
         }
         for(ArticleResponse item : articles){
             List<Integer> oldClassifyList = blogResArticleTagMapper.listTagByArticleId(item.getArticleId());

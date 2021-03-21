@@ -5,6 +5,7 @@ import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.response.ArticleResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -16,12 +17,12 @@ import java.util.List;
  * @author WenleiWang
  * @since 2020-11-05
  */
-@Mapper
+@Repository
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<ArticleResponse> listSearchOfName(@Param("userId")Integer userId, @Param("search") String search, @Param("offset") int offset, @Param("pageSize") Integer pageSize);
+    List<ArticleResponse> listSearchOfName(@Param("userId")Integer userId, @Param("search") String search, @Param("classifyId") int classifyId, @Param("offset") int offset, @Param("pageSize") Integer pageSize);
 
-    int countForSearchOfName(@Param("userId")Integer userId, @Param("search") String search);
+    int countForSearchOfName(@Param("userId")Integer userId, @Param("classifyId") int classifyId, @Param("search") String search);
 
     /**
      * 逻辑删除文章
