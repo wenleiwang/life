@@ -57,6 +57,18 @@ public class ArticleResponse {
     @ApiModelProperty(value = "是否开启收藏")
     private Boolean collectStatus;
 
+    @ApiModelProperty(value = "点赞数量")
+    private Integer starNum;
+
+    @ApiModelProperty(value = "评论数量")
+    private Integer commentNum;
+
+    @ApiModelProperty(value = "收藏数量")
+    private Integer collectNum;
+
+    @ApiModelProperty(value = "浏览数量")
+    private Integer viewNum;
+
     /**
      * 首图
      */

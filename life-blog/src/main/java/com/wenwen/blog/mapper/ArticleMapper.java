@@ -50,4 +50,18 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return 文章详情
      */
     ArticleResponse getArticle(Integer articledId);
+
+    /**
+     * 定时同步任务，每5分钟获取一次全量文章ID，去Redis同步浏览量
+     * @return 所有的文章ID
+     */
+    List<Integer> listAllArticleId();
+
+    /**
+     * 新增浏览数
+     * @param articledId 文章ID
+     * @param viewCount 新增数量
+     * @return 操作条数
+     */
+    int addView(@Param("articledId") Integer articledId, @Param("viewCount") int viewCount);
 }

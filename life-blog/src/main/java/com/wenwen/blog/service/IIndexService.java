@@ -1,12 +1,10 @@
 package com.wenwen.blog.service;
 
-import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.entity.response.ArticleResponse;
+import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
-
-import java.util.List;
 
 public interface IIndexService {
     /**
@@ -37,4 +35,11 @@ public interface IIndexService {
      * @return 文章
      */
     ResponseDataBase<ArticleResponse> getArticle(Integer articledId);
+
+    /**
+     * 给一个文章添加浏览数
+     * @param articledId 文章ID
+     * @return 添加状态
+     */
+    ResponseBase addView(Integer articledId,String ipAddress);
 }

@@ -46,6 +46,11 @@
             );
     </insert>
 
+<!--    文章新增浏览数-->
+    <insert id="addView">
+        update blog_article set view_num = view_num + #{viewCount} where article_id = #{articledId};
+    </insert>
+
     <select id="listSearchOfName" resultType="com.wenwen.blog.entity.response.ArticleResponse">
         select * from blog_article
         <where>
@@ -90,5 +95,10 @@
 
     <select id="getArticle" resultType="com.wenwen.blog.entity.response.ArticleResponse">
         select * from blog_article where article_id = #{articledId};
+    </select>
+
+<!--    定时同步任务，每5分钟获取一次全量文章ID，去Redis同步浏览量-->
+    <select id="listAllArticleId" resultType="java.lang.Integer">
+        select article_id from blog_article;
     </select>
 </mapper>

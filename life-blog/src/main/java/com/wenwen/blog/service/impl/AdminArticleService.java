@@ -95,7 +95,7 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setArticleFlag(article.getArticleFlag());
         // 首图处理
         if(StringUtils.isBlank(article.getArticleImgUrl())){
-            String pattern = "!\\[[a-z1-9A-Z.]+\\]\\([a-z1-9A-Z.:/-]+\\)";
+            String pattern = "!\\[[a-z1-9A-Z.]+\\]\\([a-z1-9A-Z.:/-_]+\\)";
             Pattern r = Pattern.compile(pattern);
             // 现在创建 matcher 对象
             Matcher m = r.matcher(article.getArticleBody());
