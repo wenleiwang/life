@@ -1,6 +1,8 @@
 package com.wenwen.blog.service.impl;
 
 import com.wenwen.blog.entity.Classify;
+import com.wenwen.blog.entity.response.ArticleInClassifyResponse;
+import com.wenwen.blog.entity.response.ArticleInfo;
 import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.mapper.ArticleMapper;
 import com.wenwen.blog.mapper.BlogResArticleTagMapper;
@@ -145,6 +147,27 @@ public class IndexServiceImpl implements IIndexService {
         };
         threadPool.execute(runnable);
         response.successful("200");
+        return response;
+    }
+
+    @Override
+    public ResponseListBase<ArticleInClassifyResponse> listArticleInClassify(Integer userId) {
+        ResponseListBase<ArticleInClassifyResponse> response = new ResponseListBase<>();
+        List<Classify> list = classifyMapper.listClassifyByUserId(userId);
+        List<ArticleInClassifyResponse> responseList = new ArrayList<>();
+        list.forEach(item -> {
+            ArticleInClassifyResponse info = new ArticleInClassifyResponse();
+            info.setClassifyId(item.getClassifyId());
+            info.setClassifyName(item.getClassifyName());
+            info.setUpdateTime(item.getUpdateTime());
+            info.setUserId(item.getUserId());
+            List<ArticleInfo> articles = classifyMapper.listArticleFromClassifyId(item.getClassifyId());
+            articles.forEach(aitem -> aitem.setIndex(item.getClassifyId() + "-" + aitem.getArticleId()));
+            info.setListArticle(articles);
+            responseList.add(info);
+        });
+        response.setData(responseList);
+        response.successful("数据获取成功！");
         return response;
     }
 }

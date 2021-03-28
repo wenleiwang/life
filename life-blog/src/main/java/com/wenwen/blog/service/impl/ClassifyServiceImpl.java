@@ -2,6 +2,7 @@ package com.wenwen.blog.service.impl;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
+import com.wenwen.blog.entity.response.ArticleInfo;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IClassifyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -101,10 +102,10 @@ public class ClassifyServiceImpl extends ServiceImpl<ClassifyMapper, Classify> i
     }
 
     @Override
-    public ResponseListBase<Article> listArticleFromClassifyId(Integer classifyId, Integer userId) {
-        ResponseListBase<Article> response = new ResponseListBase<>();
+    public ResponseListBase<ArticleInfo> listArticleFromClassifyId(Integer classifyId) {
+        ResponseListBase<ArticleInfo> response = new ResponseListBase<>();
 
-        List<Article> articles = classifyMapper.listArticleFromClassifyId(classifyId, userId);
+        List<ArticleInfo> articles = classifyMapper.listArticleFromClassifyId(classifyId);
         response.setData(articles);
         response.successful("查询成功！");
         return response;

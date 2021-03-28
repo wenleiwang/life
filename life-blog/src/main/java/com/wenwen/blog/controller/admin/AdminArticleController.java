@@ -2,6 +2,7 @@ package com.wenwen.blog.controller.admin;
 
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.request.ArticleRequest;
+import com.wenwen.blog.entity.response.ArticleInfo;
 import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.service.IClassifyService;
 import com.wenwen.blog.service.IResArticleClassifyService;
@@ -111,8 +112,8 @@ public class AdminArticleController {
     @ApiOperation(value = "通过分类ID查用户文章 @author 王文磊",notes = "通过分类ID查用户文章")
     @ApiImplicitParam(name = "classifyId", required = true, paramType = "query", value = "分类ID")
     @GetMapping("/listArticleFromClassifyId")
-    public ResponseListBase<Article> listArticleFromClassifyId(@RequestParam("classifyId")Integer classifyId){
+    public ResponseListBase<ArticleInfo> listArticleFromClassifyId(@RequestParam("classifyId")Integer classifyId){
         UserInfo userInfo= UserContext.getUserContext();
-        return classifyService.listArticleFromClassifyId(classifyId,userInfo.getUserId());
+        return classifyService.listArticleFromClassifyId(classifyId);
     }
 }

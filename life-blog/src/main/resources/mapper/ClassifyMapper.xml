@@ -24,9 +24,9 @@
     </delete>
 
 <!--    根据用户分类获取该用户文章列表-->
-    <select id="listArticleFromClassifyId" resultType="com.wenwen.blog.entity.Article">
+    <select id="listArticleFromClassifyId" resultType="com.wenwen.blog.entity.response.ArticleInfo">
         select * from blog_article
         where
-            user_id = #{userId} and classify_id = #{classifyId} and deleted = 0;
+            classify_id = #{classifyId} and deleted = 0;
     </select>
 </mapper>

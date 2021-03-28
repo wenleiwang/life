@@ -3,6 +3,7 @@ package com.wenwen.blog.controller.home;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.entity.User;
+import com.wenwen.blog.entity.response.ArticleInClassifyResponse;
 import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.mapper.UserMapper;
 import com.wenwen.blog.service.IIndexService;
@@ -73,6 +74,12 @@ public class IndexController {
         return indexService.listClassify(userId);
     }
 
+    @ApiOperation(value = "分类列表带文章列表")
+    @GetMapping("/listArticleInClassify")
+    public ResponseListBase<ArticleInClassifyResponse> listArticleInClassify(@RequestParam(value = "userId",required = false) Integer userId){
+        return indexService.listArticleInClassify(userId);
+    }
+
     @ApiOperation(value = "获取一条文章的详情 @author 王文磊",notes = "获取一条文章的详情")
     @ApiImplicitParams({@ApiImplicitParam(name = "文章ID", required = true, paramType = "query", value = "articledId",dataType = "int")})
     @GetMapping("/getArticle")
@@ -88,7 +95,7 @@ public class IndexController {
         return indexService.addView(articledId,ipAddress);
     }
 
-    public static String getIpAddress(HttpServletRequest request) {
+    private static String getIpAddress(HttpServletRequest request) {
         String ipAddress = request.getHeader("x-forwarded-for");
         if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
@@ -103,9 +110,11 @@ public class IndexController {
                 InetAddress inet = null;
                 try {
                     inet = InetAddress.getLocalHost();
+                    ipAddress = inet.getHostAddress();
                 } catch (UnknownHostException e) {
+                    e.printStackTrace();
                 }
-                ipAddress = inet.getHostAddress();
+
             }
         }
         //对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割

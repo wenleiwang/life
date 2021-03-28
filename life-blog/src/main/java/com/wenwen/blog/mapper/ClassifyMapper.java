@@ -3,6 +3,7 @@ package com.wenwen.blog.mapper;
 import com.wenwen.blog.entity.Article;
 import com.wenwen.blog.entity.Classify;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wenwen.blog.entity.response.ArticleInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -47,8 +48,7 @@ public interface ClassifyMapper extends BaseMapper<Classify> {
     /**
      * 根据用户分类获取该用户文章列表
      * @param classifyId 分类ID
-     * @param userId 用户ID
      * @return 符合条件文章
      */
-    List<Article> listArticleFromClassifyId(@RequestParam("classifyId") Integer classifyId, @RequestParam("userId") Integer userId);
+    List<ArticleInfo> listArticleFromClassifyId(@RequestParam("classifyId") Integer classifyId);
 }

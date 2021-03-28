@@ -1,6 +1,7 @@
 package com.wenwen.blog.service;
 
 import com.wenwen.blog.entity.Classify;
+import com.wenwen.blog.entity.response.ArticleInClassifyResponse;
 import com.wenwen.blog.entity.response.ArticleResponse;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseDataBase;
@@ -42,4 +43,11 @@ public interface IIndexService {
      * @return 添加状态
      */
     ResponseBase addView(Integer articledId,String ipAddress);
+
+    /**
+     * 分类列表带文章列表
+     * @param userId 用户ID
+     * @return 符合条件的列表
+     */
+    ResponseListBase<ArticleInClassifyResponse> listArticleInClassify(Integer userId);
 }
