@@ -20,9 +20,9 @@ import java.util.List;
 @Repository
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<ArticleResponse> listSearchOfName(@Param("userId")Integer userId, @Param("search") String search, @Param("classifyId") int classifyId, @Param("offset") int offset, @Param("pageSize") Integer pageSize);
+    List<ArticleResponse> listSearchOfName(@Param("userId")Integer userId, @Param("search") String search, @Param("classifyId") Integer classifyId, @Param("offset") int offset, @Param("pageSize") Integer pageSize);
 
-    int countForSearchOfName(@Param("userId")Integer userId, @Param("classifyId") int classifyId, @Param("search") String search);
+    int countForSearchOfName(@Param("userId")Integer userId, @Param("classifyId") Integer classifyId, @Param("search") String search);
 
     /**
      * 逻辑删除文章
