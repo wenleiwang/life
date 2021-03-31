@@ -3,9 +3,9 @@ package com.wenwen.blog.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * @ClassName RedisUtil
+ * Redis工具类
  * @Author wwl
  * @Date 2020/9/13 17:08
  * @Version 1.0
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -33,7 +33,7 @@ public class RedisUtil {
      * 指定缓存失效时间
      * @param key 键
      * @param time 时间(秒)
-     * @return
+     * @return 是否成功
      */
     public boolean expire(String key,long time){
         try {
@@ -136,7 +136,7 @@ public class RedisUtil {
      * 递增
      * @param key 键
      * @param delta 要增加几(大于0)
-     * @return
+     * @return 递增后的值
      */
     public long incr(String key, long delta){
         if(delta<0){
@@ -149,7 +149,7 @@ public class RedisUtil {
      * 递减
      * @param key 键
      * @param delta 要减少几(小于0)
-     * @return
+     * @return 递减后的值
      */
     public long decr(String key, long delta){
         if(delta<0){
@@ -276,7 +276,7 @@ public class RedisUtil {
      * @param key 键
      * @param item 项
      * @param by 要增加几(大于0)
-     * @return
+     * @return 新增后的值返回
      */
     public double hincr(String key, String item,double by){
         return redisTemplate.opsForHash().increment(key, item, by);
@@ -287,7 +287,7 @@ public class RedisUtil {
      * @param key 键
      * @param item 项
      * @param by 要减少记(小于0)
-     * @return
+     * @return 递减后的值返回
      */
     public double hdecr(String key, String item,double by){
         return redisTemplate.opsForHash().increment(key, item,-by);
@@ -297,7 +297,7 @@ public class RedisUtil {
     /**
      * 根据key获取Set中的所有值
      * @param key 键
-     * @return
+     * @return 所有值
      */
     public Set<Object> sGet(String key){
         try {

@@ -5,6 +5,7 @@ import com.wenwen.blog.entity.User;
 import com.wenwen.blog.entity.response.UserResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @author WenleiWang
  * @since 2020-11-05
  */
-@Mapper
+@Repository
 public interface UserMapper extends BaseMapper<User> {
     List<Map<String,String>> listUser();
     Map<String,String> listUserOne();

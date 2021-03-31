@@ -44,6 +44,12 @@ public class AdminArticleService implements IAdminArticleService {
     @Autowired
     ClassifyMapper classifyMapper;
 
+    Pattern r = Pattern.compile("!\\[[a-z1-9A-Z.]+\\]\\([a-z1-9A-Z.:/-_]+\\)");
+    /**
+     * 七牛返回图片链接正则匹配
+     */
+    Pattern r1 = Pattern.compile("\\([a-z1-9A-Z.:/-]+\\)");
+
     /**
      * 添加或更新文章，如果有id则更新文章，如果没有id则添加新建文章
      * @param article 文章对象
@@ -95,12 +101,9 @@ public class AdminArticleService implements IAdminArticleService {
         blog.setArticleFlag(article.getArticleFlag());
         // 首图处理
         if(StringUtils.isBlank(article.getArticleImgUrl())){
-            String pattern = "!\\[[a-z1-9A-Z.]+\\]\\([a-z1-9A-Z.:/-_]+\\)";
-            Pattern r = Pattern.compile(pattern);
             // 现在创建 matcher 对象
             Matcher m = r.matcher(article.getArticleBody());
             if (m.find()) {
-                Pattern r1 = Pattern.compile("\\([a-z1-9A-Z.:/-]+\\)");
                 Matcher m1 = r1.matcher(m.group(0));
                 if(m1.find()){
                     String imgUrl = m1.group(0);

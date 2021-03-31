@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -37,8 +40,17 @@ public class IndexController {
     IIndexService indexService;
 
     @GetMapping("/user")
-    public String user(){
+    public String user(HttpServletResponse response){
         final User user = userMapper.selectById(1);
+//        Encode.forHtml("w偶尔金佛安加尔瓦");
+        PrintWriter writer = null;
+        try {
+            writer = response.getWriter();
+            writer.write("w偶尔金佛安加尔瓦");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "";
     }
 
