@@ -65,7 +65,7 @@
             </if>
             and deleted = 0
             </where>
-            order by add_time
+            order by add_time desc
         limit #{offset} , #{pageSize};
     </select>
 
