@@ -48,7 +48,7 @@ public class AdminArticleService implements IAdminArticleService {
     /**
      * 七牛返回图片链接正则匹配
      */
-    Pattern r1 = Pattern.compile("\\([a-z1-9A-Z.:/-]+\\)");
+    Pattern r1 = Pattern.compile("\\([a-z1-9A-Z.:/-_]+\\)");
 
     /**
      * 添加或更新文章，如果有id则更新文章，如果没有id则添加新建文章
