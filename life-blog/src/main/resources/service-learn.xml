@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns 默认命名空间：XML文档携带者beans信息-->
+<!--  XML 解析器可以根据 一个 XSD 文件的内容来解析另一个 XML 文件， 判断该文件的结构是否和 XSD 文件中定义的一致-->
+<!-- 前一个命名空间所对应的 XSD 文件的位置， xml parser 可以利用这个信息获取到 XSD 文件， 从而通过 XSD 文件对所有属于命名空间的元素结构进行校验-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <bean id="belongToFirst" class="com.wenwen.blog.service.learn.springlearn.l1.BelongToFirst">
+            <property name="sex" value="男"></property>
+        </bean>
+        <bean id="firstXml" class="com.wenwen.blog.service.learn.springlearn.l1.FirstBeanXml">
+            <!-- name对应类里的成员变量，ref对应填充其他对象，value直接赋值-->
+            <property name="sex" ref="belongToFirst"></property>
+            <property name="age" value="27"></property>
+            <property name="name" value="wangwenlei"></property>
+            <!-- 此bean的其他协作者和配置在此处 -->
+        </bean>
+</beans>
