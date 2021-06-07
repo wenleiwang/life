@@ -1,0 +1,8 @@
+hello:
+  msg: wenlei
+task:
+  pool:
+    corePoolSize: 5 #设置核心线程数
+    maxPoolSize: 20  #设置最大线程数
+    keepAliveSeconds: 60 #设置线程活跃时间（秒）
+    queueCapacity: 1000 #设置队列容量

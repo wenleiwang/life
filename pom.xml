@@ -17,6 +17,7 @@
         <module>life-blog</module>
         <module>common</module>
         <module>life-generator</module>
+        <module>life-learn</module>
     </modules>
 
 <!--    这里是添加modules后提示让添加上的。作用：意思是使用maven分模块管理，都会有一个父级项目-->
@@ -56,16 +57,25 @@
             </exclusions>
         </dependency>
 
+        <!--		开启swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
+            <version>2.7.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>2.7.0</version>
         </dependency>
+
+        <!--		开启redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+<!--        开启spring  web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
