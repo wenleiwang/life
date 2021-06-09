@@ -32,8 +32,10 @@ public class SyncArticleViewCountService {
         list.forEach(item -> {
             if(redisUtil.hasKey("viewCount:" + item)){
                 int o =(int) redisUtil.get("viewCount:" + item);
-                redisUtil.decr("viewCount:" + item ,o);
-                articleMapper.addView(item,o);
+                if(o != 0){
+                    redisUtil.decr("viewCount:" + item ,o);
+                    articleMapper.addView(item,o);
+                }
             }
         });
         logger.info("完成一次浏览数据同步");
