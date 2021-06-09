@@ -1,5 +1,6 @@
 package com.wenwen.blog.util.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
@@ -14,14 +15,15 @@ import org.springframework.stereotype.Component;
  **/
 @Aspect
 @Component
+@Slf4j
 public class PerformSpendTimeAspect {
     @Before("execution(* com.wenwen.blog.controller..*.*(..))")
     public void startMethod(){
-        System.out.println("开始调用方法！");
+        log.info("开始调用方法！");
     }
     @After("execution(* com.wenwen.blog.controller..*.*(..))")
     public void endMethod(){
-        System.out.println("结束调用方法！");
+        log.info("结束调用方法！");
     }
     /**
      * 切面表达式：
@@ -33,14 +35,16 @@ public class PerformSpendTimeAspect {
      * 第五处 *(..) *代表类中的方法名，(..)表示方法中的任何参数
      *
      * @param joinPoint
+     * @return
      */
     @Around("execution(* com.wenwen.blog.controller..*.*(..))")
-    public void performMethod(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object performMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         final long start = System.currentTimeMillis();
         // 执行目标 service
         Object result = joinPoint.proceed();
         final long end = System.currentTimeMillis();
-        System.out.println("执行耗时" + (end - start));
+        log.info("执行耗时" + (end - start));
+        return result;
     }
 
 }
