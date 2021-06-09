@@ -28,6 +28,18 @@
         </triggeringPolicy>
     </appender>
 
+    <!-- 将日志写入数据库 -->
+    <appender name="DBTEST" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="org.apache.commons.dbcp.BasicDataSource">
+                <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
+                <url>jdbc:mysql://10.24.65.154:3307/newhouse_customer_log_test</url>
+                <username>nh_cuslog_test_admin</username>
+                <password>ndm4Hd18</password>
+            </dataSource>
+        </connectionSource>
+    </appender>
+
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="STDOUT" />
