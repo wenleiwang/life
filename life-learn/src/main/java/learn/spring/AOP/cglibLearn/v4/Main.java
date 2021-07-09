@@ -1,4 +1,4 @@
-package learn.AOP.cglibLearn.v4;
+package learn.spring.AOP.cglibLearn.v4;
 
 import net.sf.cglib.beans.BeanGenerator;
 

@@ -1,4 +1,4 @@
-package learn.AOP;
+package learn.spring.AOP;
 
 import org.springframework.aop.AfterReturningAdvice;
 

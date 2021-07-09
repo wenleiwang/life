@@ -1,8 +1,11 @@
 hello:
-  msg: wenlei
-task:
-  pool:
-    corePoolSize: 5 #设置核心线程数
-    maxPoolSize: 20  #设置最大线程数
-    keepAliveSeconds: 60 #设置线程活跃时间（秒）
-    queueCapacity: 1000 #设置队列容量
+  msg: test
+  name: wenlei
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/poesy_life?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root

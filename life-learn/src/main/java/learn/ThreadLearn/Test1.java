@@ -1,6 +1,6 @@
 package learn.ThreadLearn;
 
-import learn.AOP.Animal;
+import learn.spring.AOP.Animal;
 
 import java.util.Collection;
 import java.util.SortedSet;

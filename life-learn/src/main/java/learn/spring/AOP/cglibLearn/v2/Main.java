@@ -1,4 +1,4 @@
-package learn.AOP.cglibLearn.v2;
+package learn.spring.AOP.cglibLearn.v2;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -17,7 +17,7 @@ public class Main {
     }
     public static void main(String[] args) {
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(learn.AOP.cglibLearn.v1.Main.class);
+        enhancer.setSuperclass(learn.spring.AOP.cglibLearn.v1.Main.class);
         enhancer.setCallback(new MethodInterceptor() {
             @Override
             public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
@@ -28,7 +28,7 @@ public class Main {
             }
         });
 
-        learn.AOP.cglibLearn.v1.Main main1 = (learn.AOP.cglibLearn.v1.Main) enhancer.create();
+        learn.spring.AOP.cglibLearn.v1.Main main1 = (learn.spring.AOP.cglibLearn.v1.Main) enhancer.create();
         main1.test();
     }
 }

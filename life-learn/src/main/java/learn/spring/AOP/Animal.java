@@ -1,4 +1,4 @@
-package learn.AOP;
+package learn.spring.AOP;
 
 /**
  * @author WangWenLei

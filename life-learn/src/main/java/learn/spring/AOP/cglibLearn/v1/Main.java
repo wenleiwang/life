@@ -1,4 +1,4 @@
-package learn.AOP.cglibLearn.v1;
+package learn.spring.AOP.cglibLearn.v1;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.FixedValue;

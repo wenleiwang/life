@@ -1,4 +1,4 @@
-package learn.AOP.cglibLearn.v3;
+package learn.spring.AOP.cglibLearn.v3;
 
 import net.sf.cglib.proxy.CallbackHelper;
 import net.sf.cglib.proxy.Enhancer;
