@@ -27,12 +27,7 @@
 		</dependency>
 
 <!--		七牛云使用的相关依赖-->
-		<dependency>
-			<groupId>com.squareup.okhttp3</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>3.14.2</version>
-			<scope>compile</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -58,6 +53,26 @@
 			<artifactId>awaitility</artifactId>
 			<version>3.1.2</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!--		mybatis-plus-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>3.4.0</version>
+		</dependency>
+		<!-- mysql数据库的驱动包 start -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.38</version>
+		</dependency>
+
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.18</version>
 		</dependency>
 
 		<dependency>

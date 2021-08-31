@@ -1,7 +1,7 @@
 #连接数据库
 ## 日志配置
 logging:
-  config: life-blog/src/main/resources/logback.xml
+  config: life-blog/src/main/resources/logback-spring.xml
   level:
     com.wenwen.blog.mapper: debug
 
