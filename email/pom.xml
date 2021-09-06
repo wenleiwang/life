@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>wang.wenlei</groupId>
-	<artifactId>post</artifactId>
+	<artifactId>email</artifactId>
 	<version>0.0.1</version>
 	<name>post</name>
 	<description>a project like postman</description>
