@@ -1,5 +1,7 @@
 package com.wenwen.blog.service.impl;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.wenwen.blog.entity.Classify;
 import com.wenwen.blog.entity.response.ArticleInClassifyResponse;
 import com.wenwen.blog.entity.response.ArticleInfo;
@@ -8,7 +10,6 @@ import com.wenwen.blog.mapper.ArticleMapper;
 import com.wenwen.blog.mapper.BlogResArticleTagMapper;
 import com.wenwen.blog.mapper.ClassifyMapper;
 import com.wenwen.blog.service.IIndexService;
-import com.wenwen.blog.util.RedisUtil;
 import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
@@ -18,8 +19,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 首页服务类
@@ -41,8 +44,16 @@ public class IndexServiceImpl implements IIndexService {
     @Autowired
     ThreadPoolTaskExecutor threadPool;
 
-    @Autowired
-    RedisUtil redisUtil;
+    private final Cache<String, SoftReference<Object>> localCache = CacheBuilder.newBuilder()
+            //设置cache的初始大小为10，要合理设置该值
+            .initialCapacity(50)
+            //设置并发数为5，即同一时间最多只能有5个线程往cache执行写入操作
+            .concurrencyLevel(5)
+            //设置cache中的数据在写入之后的存活时间为3
+            .expireAfterWrite(60, TimeUnit.SECONDS)
+            //构建cache实例
+            .build();
+
 
     /**
      * 分页获取文章列表数据
@@ -55,18 +66,24 @@ public class IndexServiceImpl implements IIndexService {
     public ResponseListBase<ArticleResponse> listArticle(String search,Integer classifyId, Integer pageNum, Integer pageSize) {
         ResponseListBase<ArticleResponse> response = new ResponseListBase<>();
 
-        if(pageSize == null || pageSize <= 0) pageSize = 10;
-        if(pageNum == null || pageNum <= 0) pageNum = 1;
+        if(pageSize == null || pageSize <= 0) {
+            pageSize = 10;
+        }
+        if(pageNum == null || pageNum <= 0) {
+            pageNum = 1;
+        }
 
         List<ArticleResponse> articles = new ArrayList<>();
         int total = 0;
         if(StringUtils.isBlank(search)){
             //分页数量的全部列表
-            articles = articleMapper.listSearchOfName(null, null,classifyId, (pageNum - 1) * pageSize, pageSize);
+            articles = articleMapper.listSearchOfName(null, null,classifyId,
+                    (pageNum - 1) * pageSize, pageSize);
             total =  articleMapper.countForSearchOfName(null,classifyId, null);
 
         }else{
-            articles = articleMapper.listSearchOfName(null,"%" + search.trim() + "%",classifyId,(pageNum - 1) * pageSize, pageSize);
+            articles = articleMapper.listSearchOfName(null,"%" + search.trim() + "%",
+                    classifyId,(pageNum - 1) * pageSize, pageSize);
             total =  articleMapper.countForSearchOfName(null,classifyId,"%" + search.trim() + "%");
         }
         for(ArticleResponse item : articles){
@@ -133,17 +150,10 @@ public class IndexServiceImpl implements IIndexService {
         // 1.开启线程
         Runnable runnable = () -> {
             String ipInRedis = "isViewd:" + articledId + ":" + ipAddress;
-            Object o = redisUtil.get(ipInRedis);
-            if(o == null){
-                // 2.放到Redis中
-                redisUtil.set(ipInRedis,1,60 * 60L);
-                if(redisUtil.hasKey("viewCount:" + articledId)){
-                    redisUtil.incr("viewCount:" + articledId,  1);
-                }else{
-                    redisUtil.set("viewCount:" + articledId, 1);
-                }
+            SoftReference<Object> ifPresent = localCache.getIfPresent(ipInRedis);
+            if(ifPresent == null || ifPresent.get() != null){
+                articleMapper.addView(articledId,1);
             }
-
         };
         threadPool.execute(runnable);
         response.successful("200");

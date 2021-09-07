@@ -10,4 +10,19 @@ package learn.algorithm.sort;
  * @DATE: 2021/5/27
  **/
 public class MergeSort {
+    public static void main(String[] args) {
+        int [] data = new int[]{2,2,3,1,5,8,9,65,3,12,4,5,9,4,3,2,1};
+        mergeSort(data,data[0],data[data.length],new int[data.length]);
+    }
+
+    private static int mergeSort(int[] data, int low, int high, int[] ints) {
+        if(low == high){
+            return data[low];
+        }
+        // 计算中位数
+        int middle = low + ((high - low) >> 2);
+        mergeSort(data,low,middle-1,ints);
+        mergeSort(data,middle,middle,ints);
+        return  middle;
+    }
 }
