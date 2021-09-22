@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Map;
 
 /**
  * @author WangWenLei
@@ -76,7 +77,7 @@ public class IndexController {
 
     @ApiOperation(value = "热门文章标题列表")
     @GetMapping("/listHostArticle")
-    public ResponseListBase<String> listHostArticle(){
+    public ResponseListBase<Map<Integer,String>> listHostArticle(){
         return indexService.listHostArticle();
     }
 

@@ -7,6 +7,8 @@ import com.wenwen.blog.util.response.ResponseBase;
 import com.wenwen.blog.util.response.ResponseDataBase;
 import com.wenwen.blog.util.response.ResponseListBase;
 
+import java.util.Map;
+
 public interface IIndexService {
     /**
      * 分页获取文章列表数据
@@ -21,7 +23,7 @@ public interface IIndexService {
      * 获取TOP9的文章标题
      * @return 文章标题TOP9
      */
-    ResponseListBase<String> listHostArticle();
+    ResponseListBase<Map<Integer,String>> listHostArticle();
 
     /**
      * 通过用户ID获取分类列表

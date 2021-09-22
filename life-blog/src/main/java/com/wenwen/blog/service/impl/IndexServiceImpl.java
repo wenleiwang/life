@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -97,11 +99,17 @@ public class IndexServiceImpl implements IIndexService {
     }
 
     @Override
-    public ResponseListBase<String> listHostArticle() {
-        ResponseListBase<String> response = new ResponseListBase<>();
+    public ResponseListBase<Map<Integer,String>> listHostArticle() {
+        ResponseListBase<Map<Integer,String>> response = new ResponseListBase<>();
+        List<Map<Integer,String>> responseList = new ArrayList<>();
         List<String> list = articleMapper.listTop9ArticleName();
         if(list != null){
-            response.setData(list);
+            for(int i = 1 ; i <= list.size() ; i++){
+                Map<Integer,String> map = new HashMap<>(1);
+                map.put(i,list.get(i-1));
+                responseList.add(map);
+            }
+            response.setData(responseList);
             response.successful("获取数据成功！");
         }else{
             response.setData(new ArrayList<>());
