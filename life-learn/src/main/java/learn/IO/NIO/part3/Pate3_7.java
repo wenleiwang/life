@@ -1,4 +1,4 @@
-package learn.NIO.part3;
+package learn.IO.NIO.part3;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

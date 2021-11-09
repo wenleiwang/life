@@ -1,4 +1,4 @@
-package learn.NIO.NettyLearn;
+package learn.IO.NettyLearn;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

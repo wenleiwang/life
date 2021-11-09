@@ -1,4 +1,4 @@
-package learn.NIO;
+package learn.IO.NIO;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

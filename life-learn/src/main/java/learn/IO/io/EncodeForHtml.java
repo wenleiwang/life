@@ -1,4 +1,4 @@
-package learn.IO;
+package learn.IO.io;
 
 /**
  * @author WangWenLei

@@ -1,4 +1,4 @@
-package learn.NIO;
+package learn.IO.NIO;
 
 import java.nio.ByteBuffer;
 
