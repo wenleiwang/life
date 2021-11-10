@@ -1,4 +1,4 @@
-package learn.IO;
+package learn.IO.NIO;
 
 import java.io.*;
 import java.net.URLConnection;
