@@ -1,4 +1,4 @@
-package learn.springlearn.l1;
+package learn.springlearn.bean.userxmlbean;
 
 /**
  * 第一个XML的Bean对象的一个常量

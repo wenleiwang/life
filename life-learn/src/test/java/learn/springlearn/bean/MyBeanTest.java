@@ -1,5 +1,6 @@
 package learn.springlearn.bean;
 
+import learn.springlearn.bean.ConfigurationPropertiesTest.MyBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,7 @@ public class MyBeanTest {
 
     @Test
     public void test(){
-        String name = myBean.name;
+        String name = myBean.getName();
         System.out.println(name);
         Assert.hasText("wenlei",name);
     }

@@ -1,12 +1,13 @@
-package learn.springlearn.bean;
+package learn.springlearn.bean.ConfigurationPropertiesTest;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * @author WangWenLei
  * @DATE: 2021/6/15
  **/
-//@Component
+@Component
 @ConfigurationProperties("hello")
 public class MyBean {
 //    @Value("${hello.msg}")

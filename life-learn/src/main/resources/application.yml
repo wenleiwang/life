@@ -1,5 +1,5 @@
 hello:
-  msg: test
+  msg: wangwenleiConfigurationPropertiestest
   name: wenlei
 
 spring:
@@ -9,4 +9,5 @@ spring:
     url: jdbc:mysql://localhost:3306/poesy_life?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
-scanPackage=com.gupaodu.demo
+  profiles:
+    active: test

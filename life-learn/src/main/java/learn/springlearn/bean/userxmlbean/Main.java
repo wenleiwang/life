@@ -1,4 +1,4 @@
-package learn.springlearn.l1;
+package learn.springlearn.bean.userxmlbean;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

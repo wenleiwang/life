@@ -1,4 +1,4 @@
-package learn.springlearn.l1;
+package learn.springlearn.bean.userxmlbean;
 
 /**
  * 第一个XML文件格式的Bean，要使用XML文件注册这个Bean
