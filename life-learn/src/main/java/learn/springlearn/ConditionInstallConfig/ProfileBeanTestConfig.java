@@ -12,15 +12,15 @@ import org.springframework.context.annotation.Profile;
 public class ProfileBeanTestConfig {
     @Bean
     @Profile("test")
-    public String initBeanTest(){
+    public BeanTest initBeanTest(){
         System.out.println("加载测试类！");
-        return "加载测试类";
+        return new BeanTest();
     }
 
     @Bean
     @Profile("dev")
-    public String initBeanPro(){
+    public BeanPro initBeanPro(){
         System.out.println("加载正式类！");
-        return "加载正式类";
+        return new BeanPro();
     }
 }

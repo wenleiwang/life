@@ -9,7 +9,6 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @author WangWenLei
  * @DATE: 2021/11/19
  **/
-
 public class ConditionalUseConfig implements Condition {
     /**
      * 确定条件是否匹配。
