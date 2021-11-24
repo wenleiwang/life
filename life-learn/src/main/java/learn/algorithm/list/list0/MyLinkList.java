@@ -1,6 +1,7 @@
 package learn.algorithm.list.list0;
 
 import learn.algorithm.list.Node;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 1. 创建
