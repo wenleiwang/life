@@ -1,4 +1,4 @@
-package learn.JDKCode.callback.dome1;
+package learn.JDKCode.callback.dome1_5;
 
 /**
  * @author WangWenLei
