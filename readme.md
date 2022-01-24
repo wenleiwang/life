@@ -31,7 +31,7 @@
 
 类详情
 ```java
-package com.wenwen.blog.config;
+package com.wenwen.blog.learn.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -261,7 +261,7 @@ public class User {
 ```yaml
 ## 日志配置
 logging:
-  config: src/main/resources/logback.xml
+  learn.config: src/main/resources/logback.xml
   # 数据库日志级别
   level:
     com.github.springbootmiaosha.dao: trace

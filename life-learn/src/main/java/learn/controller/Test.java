@@ -1,8 +1,8 @@
 package learn.controller;
 
-import learn.designpatterns.strategypattern.FormSubmitHandler;
-import learn.designpatterns.strategypattern.FormSubmitHandlerFactory;
-import learn.designpatterns.strategypattern.FormSubmitRequest;
+import learn.note.designpatterns.strategypattern.FormSubmitHandler;
+import learn.note.designpatterns.strategypattern.FormSubmitHandlerFactory;
+import learn.note.designpatterns.strategypattern.FormSubmitRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

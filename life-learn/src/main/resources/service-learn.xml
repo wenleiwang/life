@@ -7,10 +7,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <bean id="belongToFirst" class="learn.springlearn.bean.userxmlbean.BelongToFirst">
+        <bean id="belongToFirst" class="learn.note.springlearn.bean.userxmlbean.BelongToFirst">
             <property name="sex" value="男"></property>
         </bean>
-        <bean id="firstXml" class="learn.springlearn.bean.userxmlbean.FirstBeanXml">
+        <bean id="firstXml" class="learn.note.springlearn.bean.userxmlbean.FirstBeanXml">
             <!-- name对应类里的成员变量，ref对应填充其他对象，value直接赋值-->
             <property name="sex" ref="belongToFirst"></property>
             <property name="age" value="27"></property>
